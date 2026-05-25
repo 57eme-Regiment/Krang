@@ -1,0 +1,20 @@
+info:
+  name: Get Item By Id
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{BaseUrl}}/api/items/{{itemId}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: itemId
+      value: d5ce2665-e3b9-4378-a1bd-c60955fc8901
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

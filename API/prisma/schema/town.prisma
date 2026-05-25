@@ -1,0 +1,12 @@
+model Town {
+  id   String @id @default(uuid())
+  name String @unique
+
+  longitude      Float //X repésente Est-Ouest
+  latitude     Float //Y Repésente Nord/Sud
+
+  regionId String
+  region   Region @relation(fields: [regionId], references: [id])
+
+  locations Location[]
+}
