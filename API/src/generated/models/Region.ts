@@ -201,6 +201,7 @@ export type RegionWhereInput = {
   name?: Prisma.StringFilter<"Region"> | string
   gameRegionId?: Prisma.IntNullableFilter<"Region"> | number | null
   towns?: Prisma.TownListRelationFilter
+  locations?: Prisma.LocationListRelationFilter
 }
 
 export type RegionOrderByWithRelationInput = {
@@ -208,6 +209,7 @@ export type RegionOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   gameRegionId?: Prisma.SortOrderInput | Prisma.SortOrder
   towns?: Prisma.TownOrderByRelationAggregateInput
+  locations?: Prisma.LocationOrderByRelationAggregateInput
 }
 
 export type RegionWhereUniqueInput = Prisma.AtLeast<{
@@ -218,6 +220,7 @@ export type RegionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RegionWhereInput | Prisma.RegionWhereInput[]
   gameRegionId?: Prisma.IntNullableFilter<"Region"> | number | null
   towns?: Prisma.TownListRelationFilter
+  locations?: Prisma.LocationListRelationFilter
 }, "id" | "name">
 
 export type RegionOrderByWithAggregationInput = {
@@ -245,6 +248,7 @@ export type RegionCreateInput = {
   name: string
   gameRegionId?: number | null
   towns?: Prisma.TownCreateNestedManyWithoutRegionInput
+  locations?: Prisma.LocationCreateNestedManyWithoutRegionInput
 }
 
 export type RegionUncheckedCreateInput = {
@@ -252,6 +256,7 @@ export type RegionUncheckedCreateInput = {
   name: string
   gameRegionId?: number | null
   towns?: Prisma.TownUncheckedCreateNestedManyWithoutRegionInput
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutRegionInput
 }
 
 export type RegionUpdateInput = {
@@ -259,6 +264,7 @@ export type RegionUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   towns?: Prisma.TownUpdateManyWithoutRegionNestedInput
+  locations?: Prisma.LocationUpdateManyWithoutRegionNestedInput
 }
 
 export type RegionUncheckedUpdateInput = {
@@ -266,6 +272,7 @@ export type RegionUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   towns?: Prisma.TownUncheckedUpdateManyWithoutRegionNestedInput
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutRegionNestedInput
 }
 
 export type RegionCreateManyInput = {
@@ -284,6 +291,11 @@ export type RegionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type RegionScalarRelationFilter = {
+  is?: Prisma.RegionWhereInput
+  isNot?: Prisma.RegionWhereInput
 }
 
 export type RegionCountOrderByAggregateInput = {
@@ -312,9 +324,18 @@ export type RegionSumOrderByAggregateInput = {
   gameRegionId?: Prisma.SortOrder
 }
 
-export type RegionScalarRelationFilter = {
-  is?: Prisma.RegionWhereInput
-  isNot?: Prisma.RegionWhereInput
+export type RegionCreateNestedOneWithoutLocationsInput = {
+  create?: Prisma.XOR<Prisma.RegionCreateWithoutLocationsInput, Prisma.RegionUncheckedCreateWithoutLocationsInput>
+  connectOrCreate?: Prisma.RegionCreateOrConnectWithoutLocationsInput
+  connect?: Prisma.RegionWhereUniqueInput
+}
+
+export type RegionUpdateOneRequiredWithoutLocationsNestedInput = {
+  create?: Prisma.XOR<Prisma.RegionCreateWithoutLocationsInput, Prisma.RegionUncheckedCreateWithoutLocationsInput>
+  connectOrCreate?: Prisma.RegionCreateOrConnectWithoutLocationsInput
+  upsert?: Prisma.RegionUpsertWithoutLocationsInput
+  connect?: Prisma.RegionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RegionUpdateToOneWithWhereWithoutLocationsInput, Prisma.RegionUpdateWithoutLocationsInput>, Prisma.RegionUncheckedUpdateWithoutLocationsInput>
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -339,16 +360,62 @@ export type RegionUpdateOneRequiredWithoutTownsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RegionUpdateToOneWithWhereWithoutTownsInput, Prisma.RegionUpdateWithoutTownsInput>, Prisma.RegionUncheckedUpdateWithoutTownsInput>
 }
 
+export type RegionCreateWithoutLocationsInput = {
+  id?: string
+  name: string
+  gameRegionId?: number | null
+  towns?: Prisma.TownCreateNestedManyWithoutRegionInput
+}
+
+export type RegionUncheckedCreateWithoutLocationsInput = {
+  id?: string
+  name: string
+  gameRegionId?: number | null
+  towns?: Prisma.TownUncheckedCreateNestedManyWithoutRegionInput
+}
+
+export type RegionCreateOrConnectWithoutLocationsInput = {
+  where: Prisma.RegionWhereUniqueInput
+  create: Prisma.XOR<Prisma.RegionCreateWithoutLocationsInput, Prisma.RegionUncheckedCreateWithoutLocationsInput>
+}
+
+export type RegionUpsertWithoutLocationsInput = {
+  update: Prisma.XOR<Prisma.RegionUpdateWithoutLocationsInput, Prisma.RegionUncheckedUpdateWithoutLocationsInput>
+  create: Prisma.XOR<Prisma.RegionCreateWithoutLocationsInput, Prisma.RegionUncheckedCreateWithoutLocationsInput>
+  where?: Prisma.RegionWhereInput
+}
+
+export type RegionUpdateToOneWithWhereWithoutLocationsInput = {
+  where?: Prisma.RegionWhereInput
+  data: Prisma.XOR<Prisma.RegionUpdateWithoutLocationsInput, Prisma.RegionUncheckedUpdateWithoutLocationsInput>
+}
+
+export type RegionUpdateWithoutLocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  towns?: Prisma.TownUpdateManyWithoutRegionNestedInput
+}
+
+export type RegionUncheckedUpdateWithoutLocationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  towns?: Prisma.TownUncheckedUpdateManyWithoutRegionNestedInput
+}
+
 export type RegionCreateWithoutTownsInput = {
   id?: string
   name: string
   gameRegionId?: number | null
+  locations?: Prisma.LocationCreateNestedManyWithoutRegionInput
 }
 
 export type RegionUncheckedCreateWithoutTownsInput = {
   id?: string
   name: string
   gameRegionId?: number | null
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutRegionInput
 }
 
 export type RegionCreateOrConnectWithoutTownsInput = {
@@ -371,12 +438,14 @@ export type RegionUpdateWithoutTownsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  locations?: Prisma.LocationUpdateManyWithoutRegionNestedInput
 }
 
 export type RegionUncheckedUpdateWithoutTownsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   gameRegionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutRegionNestedInput
 }
 
 
@@ -386,10 +455,12 @@ export type RegionUncheckedUpdateWithoutTownsInput = {
 
 export type RegionCountOutputType = {
   towns: number
+  locations: number
 }
 
 export type RegionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   towns?: boolean | RegionCountOutputTypeCountTownsArgs
+  locations?: boolean | RegionCountOutputTypeCountLocationsArgs
 }
 
 /**
@@ -409,12 +480,20 @@ export type RegionCountOutputTypeCountTownsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.TownWhereInput
 }
 
+/**
+ * RegionCountOutputType without action
+ */
+export type RegionCountOutputTypeCountLocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LocationWhereInput
+}
+
 
 export type RegionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   gameRegionId?: boolean
   towns?: boolean | Prisma.Region$townsArgs<ExtArgs>
+  locations?: boolean | Prisma.Region$locationsArgs<ExtArgs>
   _count?: boolean | Prisma.RegionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["region"]>
 
@@ -439,6 +518,7 @@ export type RegionSelectScalar = {
 export type RegionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "gameRegionId", ExtArgs["result"]["region"]>
 export type RegionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   towns?: boolean | Prisma.Region$townsArgs<ExtArgs>
+  locations?: boolean | Prisma.Region$locationsArgs<ExtArgs>
   _count?: boolean | Prisma.RegionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RegionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -448,6 +528,7 @@ export type $RegionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Region"
   objects: {
     towns: Prisma.$TownPayload<ExtArgs>[]
+    locations: Prisma.$LocationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -848,6 +929,7 @@ readonly fields: RegionFieldRefs;
 export interface Prisma__RegionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   towns<T extends Prisma.Region$townsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Region$townsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TownPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  locations<T extends Prisma.Region$locationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Region$locationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1294,6 +1376,30 @@ export type Region$townsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.TownScalarFieldEnum | Prisma.TownScalarFieldEnum[]
+}
+
+/**
+ * Region.locations
+ */
+export type Region$locationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Location
+   */
+  select?: Prisma.LocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Location
+   */
+  omit?: Prisma.LocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LocationInclude<ExtArgs> | null
+  where?: Prisma.LocationWhereInput
+  orderBy?: Prisma.LocationOrderByWithRelationInput | Prisma.LocationOrderByWithRelationInput[]
+  cursor?: Prisma.LocationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LocationScalarFieldEnum | Prisma.LocationScalarFieldEnum[]
 }
 
 /**

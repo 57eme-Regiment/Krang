@@ -5,4 +5,5 @@ model Region {
   gameRegionId  Int?
 
   towns         Town[]
+  locations     Location[]
 }
