@@ -121,6 +121,7 @@ export const TownScalarFieldEnum = {
   name: 'name',
   longitude: 'longitude',
   latitude: 'latitude',
+  mapMarkerType: 'mapMarkerType',
   regionId: 'regionId'
 } as const
 

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { MapMarkerTypeSchema } from '../enums';
 
 export const TownSchema = z.object({
   id: z.uuid(),
@@ -6,6 +7,7 @@ export const TownSchema = z.object({
   longitude: z.number(),
   latitude: z.number(),
   regionId: z.uuid(),
+  mapMarkerType: MapMarkerTypeSchema,
 });
 
 export const createTownSchema = z.object({
@@ -13,6 +15,7 @@ export const createTownSchema = z.object({
   longitude: z.number(),
   latitude: z.number(),
   regionId: z.uuid(),
+  mapMarkerType: MapMarkerTypeSchema,
 });
 
 export const updateTownSchema = createTownSchema.partial();

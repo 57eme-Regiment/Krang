@@ -55,3 +55,11 @@ export const LocationType = {
 } as const
 
 export type LocationType = (typeof LocationType)[keyof typeof LocationType]
+
+
+export const MapMarkerType = {
+  MAJOR: 'MAJOR',
+  MINOR: 'MINOR'
+} as const
+
+export type MapMarkerType = (typeof MapMarkerType)[keyof typeof MapMarkerType]

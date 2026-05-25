@@ -41,6 +41,7 @@ export type TownMinAggregateOutputType = {
   name: string | null
   longitude: number | null
   latitude: number | null
+  mapMarkerType: $Enums.MapMarkerType | null
   regionId: string | null
 }
 
@@ -49,6 +50,7 @@ export type TownMaxAggregateOutputType = {
   name: string | null
   longitude: number | null
   latitude: number | null
+  mapMarkerType: $Enums.MapMarkerType | null
   regionId: string | null
 }
 
@@ -57,6 +59,7 @@ export type TownCountAggregateOutputType = {
   name: number
   longitude: number
   latitude: number
+  mapMarkerType: number
   regionId: number
   _all: number
 }
@@ -77,6 +80,7 @@ export type TownMinAggregateInputType = {
   name?: true
   longitude?: true
   latitude?: true
+  mapMarkerType?: true
   regionId?: true
 }
 
@@ -85,6 +89,7 @@ export type TownMaxAggregateInputType = {
   name?: true
   longitude?: true
   latitude?: true
+  mapMarkerType?: true
   regionId?: true
 }
 
@@ -93,6 +98,7 @@ export type TownCountAggregateInputType = {
   name?: true
   longitude?: true
   latitude?: true
+  mapMarkerType?: true
   regionId?: true
   _all?: true
 }
@@ -188,6 +194,7 @@ export type TownGroupByOutputType = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   regionId: string
   _count: TownCountAggregateOutputType | null
   _avg: TownAvgAggregateOutputType | null
@@ -219,6 +226,7 @@ export type TownWhereInput = {
   name?: Prisma.StringFilter<"Town"> | string
   longitude?: Prisma.FloatFilter<"Town"> | number
   latitude?: Prisma.FloatFilter<"Town"> | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFilter<"Town"> | $Enums.MapMarkerType
   regionId?: Prisma.StringFilter<"Town"> | string
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
   locations?: Prisma.LocationListRelationFilter
@@ -229,6 +237,7 @@ export type TownOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
+  mapMarkerType?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
   region?: Prisma.RegionOrderByWithRelationInput
   locations?: Prisma.LocationOrderByRelationAggregateInput
@@ -242,6 +251,7 @@ export type TownWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TownWhereInput | Prisma.TownWhereInput[]
   longitude?: Prisma.FloatFilter<"Town"> | number
   latitude?: Prisma.FloatFilter<"Town"> | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFilter<"Town"> | $Enums.MapMarkerType
   regionId?: Prisma.StringFilter<"Town"> | string
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
   locations?: Prisma.LocationListRelationFilter
@@ -252,6 +262,7 @@ export type TownOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
+  mapMarkerType?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
   _count?: Prisma.TownCountOrderByAggregateInput
   _avg?: Prisma.TownAvgOrderByAggregateInput
@@ -268,6 +279,7 @@ export type TownScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Town"> | string
   longitude?: Prisma.FloatWithAggregatesFilter<"Town"> | number
   latitude?: Prisma.FloatWithAggregatesFilter<"Town"> | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeWithAggregatesFilter<"Town"> | $Enums.MapMarkerType
   regionId?: Prisma.StringWithAggregatesFilter<"Town"> | string
 }
 
@@ -276,6 +288,7 @@ export type TownCreateInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   region: Prisma.RegionCreateNestedOneWithoutTownsInput
   locations?: Prisma.LocationCreateNestedManyWithoutTownInput
 }
@@ -285,6 +298,7 @@ export type TownUncheckedCreateInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   regionId: string
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutTownInput
 }
@@ -294,6 +308,7 @@ export type TownUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   region?: Prisma.RegionUpdateOneRequiredWithoutTownsNestedInput
   locations?: Prisma.LocationUpdateManyWithoutTownNestedInput
 }
@@ -303,6 +318,7 @@ export type TownUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
   locations?: Prisma.LocationUncheckedUpdateManyWithoutTownNestedInput
 }
@@ -312,6 +328,7 @@ export type TownCreateManyInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   regionId: string
 }
 
@@ -320,6 +337,7 @@ export type TownUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
 }
 
 export type TownUncheckedUpdateManyInput = {
@@ -327,6 +345,7 @@ export type TownUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -350,6 +369,7 @@ export type TownCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
+  mapMarkerType?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
 }
 
@@ -363,6 +383,7 @@ export type TownMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
+  mapMarkerType?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
 }
 
@@ -371,6 +392,7 @@ export type TownMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
+  mapMarkerType?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
 }
 
@@ -435,11 +457,16 @@ export type TownUncheckedUpdateManyWithoutRegionNestedInput = {
   deleteMany?: Prisma.TownScalarWhereInput | Prisma.TownScalarWhereInput[]
 }
 
+export type EnumMapMarkerTypeFieldUpdateOperationsInput = {
+  set?: $Enums.MapMarkerType
+}
+
 export type TownCreateWithoutLocationsInput = {
   id?: string
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   region: Prisma.RegionCreateNestedOneWithoutTownsInput
 }
 
@@ -448,6 +475,7 @@ export type TownUncheckedCreateWithoutLocationsInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   regionId: string
 }
 
@@ -472,6 +500,7 @@ export type TownUpdateWithoutLocationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   region?: Prisma.RegionUpdateOneRequiredWithoutTownsNestedInput
 }
 
@@ -480,6 +509,7 @@ export type TownUncheckedUpdateWithoutLocationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -488,6 +518,7 @@ export type TownCreateWithoutRegionInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   locations?: Prisma.LocationCreateNestedManyWithoutTownInput
 }
 
@@ -496,6 +527,7 @@ export type TownUncheckedCreateWithoutRegionInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
   locations?: Prisma.LocationUncheckedCreateNestedManyWithoutTownInput
 }
 
@@ -533,6 +565,7 @@ export type TownScalarWhereInput = {
   name?: Prisma.StringFilter<"Town"> | string
   longitude?: Prisma.FloatFilter<"Town"> | number
   latitude?: Prisma.FloatFilter<"Town"> | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFilter<"Town"> | $Enums.MapMarkerType
   regionId?: Prisma.StringFilter<"Town"> | string
 }
 
@@ -541,6 +574,7 @@ export type TownCreateManyRegionInput = {
   name: string
   longitude: number
   latitude: number
+  mapMarkerType: $Enums.MapMarkerType
 }
 
 export type TownUpdateWithoutRegionInput = {
@@ -548,6 +582,7 @@ export type TownUpdateWithoutRegionInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   locations?: Prisma.LocationUpdateManyWithoutTownNestedInput
 }
 
@@ -556,6 +591,7 @@ export type TownUncheckedUpdateWithoutRegionInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
   locations?: Prisma.LocationUncheckedUpdateManyWithoutTownNestedInput
 }
 
@@ -564,6 +600,7 @@ export type TownUncheckedUpdateManyWithoutRegionInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  mapMarkerType?: Prisma.EnumMapMarkerTypeFieldUpdateOperationsInput | $Enums.MapMarkerType
 }
 
 
@@ -602,6 +639,7 @@ export type TownSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   longitude?: boolean
   latitude?: boolean
+  mapMarkerType?: boolean
   regionId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
   locations?: boolean | Prisma.Town$locationsArgs<ExtArgs>
@@ -613,6 +651,7 @@ export type TownSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   longitude?: boolean
   latitude?: boolean
+  mapMarkerType?: boolean
   regionId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["town"]>
@@ -622,6 +661,7 @@ export type TownSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   longitude?: boolean
   latitude?: boolean
+  mapMarkerType?: boolean
   regionId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["town"]>
@@ -631,10 +671,11 @@ export type TownSelectScalar = {
   name?: boolean
   longitude?: boolean
   latitude?: boolean
+  mapMarkerType?: boolean
   regionId?: boolean
 }
 
-export type TownOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "longitude" | "latitude" | "regionId", ExtArgs["result"]["town"]>
+export type TownOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "longitude" | "latitude" | "mapMarkerType" | "regionId", ExtArgs["result"]["town"]>
 export type TownInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
   locations?: boolean | Prisma.Town$locationsArgs<ExtArgs>
@@ -658,6 +699,7 @@ export type $TownPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     longitude: number
     latitude: number
+    mapMarkerType: $Enums.MapMarkerType
     regionId: string
   }, ExtArgs["result"]["town"]>
   composites: {}
@@ -1088,6 +1130,7 @@ export interface TownFieldRefs {
   readonly name: Prisma.FieldRef<"Town", 'String'>
   readonly longitude: Prisma.FieldRef<"Town", 'Float'>
   readonly latitude: Prisma.FieldRef<"Town", 'Float'>
+  readonly mapMarkerType: Prisma.FieldRef<"Town", 'MapMarkerType'>
   readonly regionId: Prisma.FieldRef<"Town", 'String'>
 }
     
