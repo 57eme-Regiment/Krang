@@ -30,6 +30,12 @@ export const townContract = c.router({
     body: createTownSchema,
     responses: { 201: TownSchema },
   },
+  createRange: {
+    method: 'POST',
+    path: '/api/towns/Range',
+    body: createTownSchema.array(),
+    responses: { 201: TownSchema.array() },
+  },
   update: {
     method: 'PUT',
     path: '/api/towns/:id',
