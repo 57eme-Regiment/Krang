@@ -1,0 +1,20 @@
+info:
+  name: Delete Region
+  type: http
+  seq: 6
+
+http:
+  method: DELETE
+  url: "{{BaseUrl}}/api/regions/{{regionId}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: regionId
+      value: 00000000-0000-0000-0000-000000000000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

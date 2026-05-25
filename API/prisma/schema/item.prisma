@@ -1,0 +1,16 @@
+model Item {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  shortName   String?
+  category    Category
+  superClass  SuperClass
+  class       Class
+  faction     Faction      @default(NEUTRAL)
+  nbByCrate   Int
+  maxQuantity Int
+  icon        String?
+  attributes  Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

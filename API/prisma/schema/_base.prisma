@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../../src/generated"
+}
+
+
+datasource db {
+  provider = "postgresql"
+}
+
+//TODO Update this
+enum Category {
+  SMALL_ARMS
+  HEAVY_ARMS
+  HEAVY_AMMUNITION
+  UTILITY
+  MEDICAL
+  RESSOURCE
+  UNIFORM
+  VEHICLE
+  SHIPPABLE
+}
+
+//TODO Update this
+enum SuperClass {
+  MATERIAL
+  MAGAZINE
+}
+
+//TODO Update this
+enum Class {
+  REFINED_MATERIAL
+  RIFLE_AMMO
+}
+
+enum Faction {
+  WARDEN
+  COLONIAL
+  NEUTRAL
+}
+
+//TODO Update this
+enum LocationType {
+  STORAGE_DEPOT
+  SEAPORT
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@57em-regiment/krang-api-contract",
+  "version": "0.1.0",
+  "description": "Krang API contract — shared between server and consumers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --project tsconfig.json --watch"
+  },
+  "dependencies": {
+    "@ts-rest/core": "3.53.0-rc.1"
+  },
+  "peerDependencies": {
+    "zod": ">=3"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

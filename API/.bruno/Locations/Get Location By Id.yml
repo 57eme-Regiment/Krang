@@ -1,0 +1,20 @@
+info:
+  name: Get Location By Id
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{BaseUrl}}/api/locations/{{locationId}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: locationId
+      value: 00000000-0000-0000-0000-000000000000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

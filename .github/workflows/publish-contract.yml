@@ -1,0 +1,59 @@
+name: Publish API Contract
+
+on:
+  push:
+    paths:
+      - 'API/packages/contract/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@57em-regiment'
+
+      - name: Install dependencies
+        working-directory: API
+        run: pnpm install --frozen-lockfile
+
+      - name: Build contract
+        working-directory: API
+        run: pnpm --filter @57em-regiment/krang-api-contract build
+
+      - name: Publish stable (main)
+        if: github.ref == 'refs/heads/main'
+        working-directory: API/packages/contract
+        run: pnpm publish --no-git-checks --access public --tag latest
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute beta version
+        if: github.ref != 'refs/heads/main'
+        id: beta_version
+        working-directory: API/packages/contract
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          BETA_VERSION="${CURRENT}-beta.${{ github.run_number }}"
+          echo "version=$BETA_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Publish beta (non-main branches)
+        if: github.ref != 'refs/heads/main'
+        working-directory: API/packages/contract
+        run: |
+          npm version ${{ steps.beta_version.outputs.version }} --no-git-tag-version
+          pnpm publish --no-git-checks --access public --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

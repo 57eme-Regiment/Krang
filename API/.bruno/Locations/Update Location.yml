@@ -1,0 +1,31 @@
+info:
+  name: Update Location
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{BaseUrl}}/api/locations/{{locationId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "faction": "WARDEN",
+        "iconType": 1,
+        "flags": 0,
+        "viewDirection": 90,
+        "longitude": 0.320,
+        "latitude": 0.520
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: locationId
+      value: 00000000-0000-0000-0000-000000000000
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
