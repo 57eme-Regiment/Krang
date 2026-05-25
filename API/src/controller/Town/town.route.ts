@@ -16,36 +16,67 @@ export async function townRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(TownController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  server.get('/', {
-    schema: { response: { 200: z.array(TownSchema) } },
-  }, ctrl.getAll.bind(ctrl));
-
-  server.get('/:id', {
-    schema: {
-      params: townParamsSchema,
-      response: { 200: TownSchema, 404: errorSchema },
+  server.get(
+    '/',
+    {
+      schema: { response: { 200: z.array(TownSchema) } },
     },
-  }, ctrl.getById.bind(ctrl));
+    ctrl.getAll.bind(ctrl),
+  );
 
-  server.post('/', {
-    schema: {
-      body: createTownSchema,
-      response: { 201: TownSchema },
+  server.get(
+    '/:id',
+    {
+      schema: {
+        params: townParamsSchema,
+        response: { 200: TownSchema, 404: errorSchema },
+      },
     },
-  }, ctrl.create.bind(ctrl));
+    ctrl.getById.bind(ctrl),
+  );
 
-  server.put('/:id', {
-    schema: {
-      params: townParamsSchema,
-      body: updateTownSchema,
-      response: { 200: TownSchema, 404: errorSchema },
+  server.post(
+    '/',
+    {
+      schema: {
+        body: createTownSchema,
+        response: { 201: TownSchema },
+      },
     },
-  }, ctrl.update.bind(ctrl));
+    ctrl.create.bind(ctrl),
+  );
 
-  server.delete('/:id', {
-    schema: {
-      params: townParamsSchema,
-      response: { 204: z.null(), 404: errorSchema },
+  server.post(
+    '/Range',
+    {
+      schema: {
+        body: createTownSchema.array(),
+        response: { 201: TownSchema.array() },
+      },
     },
-  }, ctrl.delete.bind(ctrl));
+    ctrl.createRange.bind(ctrl),
+  );
+
+  server.put(
+    '/:id',
+    {
+      schema: {
+        params: townParamsSchema,
+        body: updateTownSchema,
+        response: { 200: TownSchema, 404: errorSchema },
+      },
+    },
+    ctrl.update.bind(ctrl),
+  );
+
+  server.delete(
+    '/:id',
+    {
+      schema: {
+        params: townParamsSchema,
+        response: { 204: z.null(), 404: errorSchema },
+      },
+    },
+    ctrl.delete.bind(ctrl),
+  );
 }

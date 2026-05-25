@@ -1,6 +1,9 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as crypto from 'crypto';
+import { scrapLocation } from './src/location.js';
+import { scrapRegion } from './src/regions.js';
+import { scrapTown } from './src/towns.js';
 
 interface ItemInfo {
   itemName: string;
@@ -140,4 +143,11 @@ async function scrapeWiki() {
   // const urls = await getAllUrls();
 }
 
-scrapeWiki();
+async function main() {
+  // scrapeWiki();
+  const regions = await scrapRegion();
+  await scrapTown(regions);
+  await scrapLocation(regions);
+}
+
+main();

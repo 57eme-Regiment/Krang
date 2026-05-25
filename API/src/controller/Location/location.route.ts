@@ -16,36 +16,67 @@ export async function locationRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(LocationController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  server.get('/', {
-    schema: { response: { 200: z.array(LocationSchema) } },
-  }, ctrl.getAll.bind(ctrl));
-
-  server.get('/:id', {
-    schema: {
-      params: locationParamsSchema,
-      response: { 200: LocationSchema, 404: errorSchema },
+  server.get(
+    '/',
+    {
+      schema: { response: { 200: z.array(LocationSchema) } },
     },
-  }, ctrl.getById.bind(ctrl));
+    ctrl.getAll.bind(ctrl),
+  );
 
-  server.post('/', {
-    schema: {
-      body: createLocationSchema,
-      response: { 201: LocationSchema },
+  server.get(
+    '/:id',
+    {
+      schema: {
+        params: locationParamsSchema,
+        response: { 200: LocationSchema, 404: errorSchema },
+      },
     },
-  }, ctrl.create.bind(ctrl));
+    ctrl.getById.bind(ctrl),
+  );
 
-  server.put('/:id', {
-    schema: {
-      params: locationParamsSchema,
-      body: updateLocationSchema,
-      response: { 200: LocationSchema, 404: errorSchema },
+  server.post(
+    '/',
+    {
+      schema: {
+        body: createLocationSchema,
+        response: { 201: LocationSchema },
+      },
     },
-  }, ctrl.update.bind(ctrl));
+    ctrl.create.bind(ctrl),
+  );
 
-  server.delete('/:id', {
-    schema: {
-      params: locationParamsSchema,
-      response: { 204: z.null(), 404: errorSchema },
+  server.post(
+    '/Range',
+    {
+      schema: {
+        body: createLocationSchema.array(),
+        response: { 201: LocationSchema.array() },
+      },
     },
-  }, ctrl.delete.bind(ctrl));
+    ctrl.createRange.bind(ctrl),
+  );
+
+  server.put(
+    '/:id',
+    {
+      schema: {
+        params: locationParamsSchema,
+        body: updateLocationSchema,
+        response: { 200: LocationSchema, 404: errorSchema },
+      },
+    },
+    ctrl.update.bind(ctrl),
+  );
+
+  server.delete(
+    '/:id',
+    {
+      schema: {
+        params: locationParamsSchema,
+        response: { 204: z.null(), 404: errorSchema },
+      },
+    },
+    ctrl.delete.bind(ctrl),
+  );
 }

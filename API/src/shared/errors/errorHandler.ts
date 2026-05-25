@@ -9,6 +9,7 @@ export function errorHandler(
   req: FastifyRequest,
   reply: FastifyReply,
 ) {
+  req.log.error(error);
   if (error instanceof AppError) {
     return reply.status(error.statusCode).send({
       error: error.code ?? error.name,
@@ -23,7 +24,6 @@ export function errorHandler(
         .status(mapped.status)
         .send({ error: mapped.error, message: mapped.message });
     }
-    req.log.error(error);
     return reply
       .status(500)
       .send({ error: 'DATABASE_ERROR', message: 'Unexpected database error.' });
@@ -45,7 +45,6 @@ export function errorHandler(
     });
   }
 
-  req.log.error(error);
   return reply
     .status(500)
     .send({ error: 'INTERNAL_ERROR', message: 'Internal server error' });

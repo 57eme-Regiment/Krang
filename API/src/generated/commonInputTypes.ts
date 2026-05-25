@@ -327,6 +327,23 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
+export type EnumMapMarkerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.MapMarkerType | Prisma.EnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel> | $Enums.MapMarkerType
+}
+
+export type EnumMapMarkerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MapMarkerType | Prisma.EnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMapMarkerTypeWithAggregatesFilter<$PrismaModel> | $Enums.MapMarkerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -613,6 +630,23 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumMapMarkerTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.MapMarkerType | Prisma.EnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel> | $Enums.MapMarkerType
+}
+
+export type NestedEnumMapMarkerTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.MapMarkerType | Prisma.EnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.MapMarkerType[] | Prisma.ListEnumMapMarkerTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumMapMarkerTypeWithAggregatesFilter<$PrismaModel> | $Enums.MapMarkerType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumMapMarkerTypeFilter<$PrismaModel>
 }
 
 

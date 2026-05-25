@@ -44,3 +44,8 @@ enum LocationType {
   STORAGE_DEPOT
   SEAPORT
 }
+
+enum MapMarkerType {
+  MAJOR
+  MINOR
+}

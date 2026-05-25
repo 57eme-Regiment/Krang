@@ -27,11 +27,16 @@ export class TownController {
     return reply.send(town);
   }
 
-  async create(
-    req: FastifyRequest<{ Body: CreateTown }>,
+  async create(req: FastifyRequest<{ Body: CreateTown }>, reply: FastifyReply) {
+    const town = await this.townService.create(req.body);
+    return reply.status(201).send(town);
+  }
+
+  async createRange(
+    req: FastifyRequest<{ Body: CreateTown[] }>,
     reply: FastifyReply,
   ) {
-    const town = await this.townService.create(req.body);
+    const town = await this.townService.createRange(req.body);
     return reply.status(201).send(town);
   }
 

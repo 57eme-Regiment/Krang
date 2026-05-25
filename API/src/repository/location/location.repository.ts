@@ -1,6 +1,9 @@
 import { Location } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
-import { CreateLocation, UpdateLocation } from '@57em-regiment/krang-api-contract';
+import {
+  CreateLocation,
+  UpdateLocation,
+} from '@57em-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { ILocationRepository } from './location.repository.interface';
 
@@ -18,6 +21,10 @@ export class LocationRepository implements ILocationRepository {
 
   create(data: CreateLocation): Promise<Location> {
     return this.db.context.location.create({ data });
+  }
+
+  createRange(data: CreateLocation[]): Promise<Location[]> {
+    return this.db.context.location.createManyAndReturn({ data });
   }
 
   update(id: string, data: UpdateLocation): Promise<Location> {

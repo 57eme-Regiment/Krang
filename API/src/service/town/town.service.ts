@@ -1,7 +1,7 @@
 import { Town } from '@/generated/client';
-import { CreateTown, UpdateTown } from '@57em-regiment/krang-api-contract';
 import { ITownRepository } from '@/repository/town/town.repository.interface';
 import { AppError } from '@/shared/errors/appError';
+import { CreateTown, UpdateTown } from '@57em-regiment/krang-api-contract';
 import { inject, injectable } from 'tsyringe';
 import type { ITownService } from './town.service.interface';
 
@@ -24,6 +24,10 @@ export class TownService implements ITownService {
 
   async create(data: CreateTown): Promise<Town> {
     return this.townRepository.create(data);
+  }
+
+  async createRange(data: CreateTown[]): Promise<Town[]> {
+    return this.townRepository.createRange(data);
   }
 
   async update(id: string, data: UpdateTown): Promise<Town> {

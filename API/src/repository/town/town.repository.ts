@@ -20,6 +20,10 @@ export class TownRepository implements ITownRepository {
     return this.db.context.town.create({ data });
   }
 
+  createRange(data: CreateTown[]): Promise<Town[]> {
+    return this.db.context.town.createManyAndReturn({ data });
+  }
+
   update(id: string, data: UpdateTown): Promise<Town> {
     return this.db.context.town.update({ where: { id }, data });
   }
