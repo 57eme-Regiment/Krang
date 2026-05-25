@@ -30,6 +30,12 @@ export const regionContract = c.router({
     body: createRegionSchema,
     responses: { 201: RegionSchema },
   },
+  createRange: {
+    method: 'POST',
+    path: '/api/regions/range',
+    body: createRegionSchema.array(),
+    responses: { 201: RegionSchema.array() },
+  },
   upsert: {
     method: 'POST',
     path: '/api/regions/upsert',

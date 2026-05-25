@@ -25,6 +25,9 @@ export class RegionService implements IRegionService {
   async create(data: CreateRegion): Promise<Region> {
     return this.regionRepository.create(data);
   }
+  async createRange(data: CreateRegion[]): Promise<Region[]> {
+    return this.regionRepository.createRange(data);
+  }
 
   async update(id: string, data: UpdateRegion): Promise<Region> {
     await this.getById(id);

@@ -16,43 +16,78 @@ export async function regionRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(RegionController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  server.get('/', {
-    schema: { response: { 200: z.array(RegionSchema) } },
-  }, ctrl.getAll.bind(ctrl));
-
-  server.get('/:id', {
-    schema: {
-      params: regionParamsSchema,
-      response: { 200: RegionSchema, 404: errorSchema },
+  server.get(
+    '/',
+    {
+      schema: { response: { 200: z.array(RegionSchema) } },
     },
-  }, ctrl.getById.bind(ctrl));
+    ctrl.getAll.bind(ctrl),
+  );
 
-  server.post('/', {
-    schema: {
-      body: createRegionSchema,
-      response: { 201: RegionSchema },
+  server.get(
+    '/:id',
+    {
+      schema: {
+        params: regionParamsSchema,
+        response: { 200: RegionSchema, 404: errorSchema },
+      },
     },
-  }, ctrl.create.bind(ctrl));
+    ctrl.getById.bind(ctrl),
+  );
 
-  server.post('/upsert', {
-    schema: {
-      body: createRegionSchema,
-      response: { 200: RegionSchema },
+  server.post(
+    '/',
+    {
+      schema: {
+        body: createRegionSchema,
+        response: { 201: RegionSchema },
+      },
     },
-  }, ctrl.upsert.bind(ctrl));
+    ctrl.create.bind(ctrl),
+  );
 
-  server.put('/:id', {
-    schema: {
-      params: regionParamsSchema,
-      body: updateRegionSchema,
-      response: { 200: RegionSchema, 404: errorSchema },
+  server.post(
+    '/range',
+    {
+      schema: {
+        body: createRegionSchema.array(),
+        response: { 201: RegionSchema.array() },
+      },
     },
-  }, ctrl.update.bind(ctrl));
+    ctrl.createRange.bind(ctrl),
+  );
 
-  server.delete('/:id', {
-    schema: {
-      params: regionParamsSchema,
-      response: { 204: z.null(), 404: errorSchema },
+  server.post(
+    '/upsert',
+    {
+      schema: {
+        body: createRegionSchema,
+        response: { 200: RegionSchema },
+      },
     },
-  }, ctrl.delete.bind(ctrl));
+    ctrl.upsert.bind(ctrl),
+  );
+
+  server.put(
+    '/:id',
+    {
+      schema: {
+        params: regionParamsSchema,
+        body: updateRegionSchema,
+        response: { 200: RegionSchema, 404: errorSchema },
+      },
+    },
+    ctrl.update.bind(ctrl),
+  );
+
+  server.delete(
+    '/:id',
+    {
+      schema: {
+        params: regionParamsSchema,
+        response: { 204: z.null(), 404: errorSchema },
+      },
+    },
+    ctrl.delete.bind(ctrl),
+  );
 }

@@ -19,6 +19,9 @@ export class RegionRepository implements IRegionRepository {
   create(data: CreateRegion): Promise<Region> {
     return this.db.context.region.create({ data });
   }
+  createRange(data: CreateRegion[]): Promise<Region[]> {
+    return this.db.context.region.createManyAndReturn({ data });
+  }
 
   update(id: string, data: UpdateRegion): Promise<Region> {
     return this.db.context.region.update({ where: { id }, data });

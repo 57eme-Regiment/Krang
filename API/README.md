@@ -14,15 +14,15 @@ The API contract package provides fully typed schemas and ts-rest contracts for 
 
 ```
 @57em-regiment:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+//npm.pkg.github.com/:_authToken=GITHUB_TOKEN
 ```
 
-2. Set the `GITHUB_TOKEN` environment variable with a [Personal Access Token](https://github.com/settings/tokens) that has `read:packages` permission.
+2. Set the `GITHUB_TOKEN` variable with a [Personal Access Token](https://github.com/settings/tokens) that has `read:packages` permission.
 
 3. Install the package:
 
 ```bash
-pnpm add @57em-regiment/krang-api-contract
+pnpm add @57em-regiment/krang-api-contract @ts-rest/core
 # or
 npm install @57em-regiment/krang-api-contract
 ```
