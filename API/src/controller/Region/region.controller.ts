@@ -1,9 +1,9 @@
-import {
-  createRegionSchema,
-  regionParamsSchema,
-  updateRegionSchema,
-} from '@/models/region/region.schema';
 import { IRegionService } from '@/service/region/region.service.interface';
+import {
+  CreateRegion,
+  RegionParams,
+  UpdateRegion,
+} from '@57em-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';
 
@@ -20,42 +20,42 @@ export class RegionController {
   }
 
   async getById(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: RegionParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = regionParamsSchema.parse(req.params);
-    const region = await this.regionService.getById(id);
+    const region = await this.regionService.getById(req.params.id);
     return reply.send(region);
   }
 
-  async create(req: FastifyRequest, reply: FastifyReply) {
-    const data = createRegionSchema.parse(req.body);
-    const region = await this.regionService.create(data);
+  async create(
+    req: FastifyRequest<{ Body: CreateRegion }>,
+    reply: FastifyReply,
+  ) {
+    const region = await this.regionService.create(req.body);
     return reply.status(201).send(region);
   }
 
-  async update(
-    req: FastifyRequest<{ Params: { id: string } }>,
+  async upsert(
+    req: FastifyRequest<{ Body: CreateRegion }>,
     reply: FastifyReply,
   ) {
-    const { id } = regionParamsSchema.parse(req.params);
-    const data = updateRegionSchema.parse(req.body);
-    const region = await this.regionService.update(id, data);
+    const region = await this.regionService.upsert(req.body);
     return reply.send(region);
   }
 
-  async upsert(req: FastifyRequest, reply: FastifyReply) {
-    const data = createRegionSchema.parse(req.body);
-    const region = await this.regionService.upsert(data);
+  async update(
+    req: FastifyRequest<{ Params: RegionParams; Body: UpdateRegion }>,
+    reply: FastifyReply,
+  ) {
+    const region = await this.regionService.update(req.params.id, req.body);
     return reply.send(region);
   }
 
   async delete(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: RegionParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = regionParamsSchema.parse(req.params);
-    await this.regionService.delete(id);
+    await this.regionService.delete(req.params.id);
     return reply.status(204).send();
   }
 }

@@ -1,6 +1,6 @@
 import { Town } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
-import { CreateTown, UpdateTown } from '@/models/town/town.schema';
+import { CreateTown, UpdateTown } from '@57em-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { ITownRepository } from './town.repository.interface';
 

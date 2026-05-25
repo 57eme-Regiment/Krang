@@ -1,6 +1,6 @@
 import { Location } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
-import { CreateLocation, UpdateLocation } from '@/models/location/location.schema';
+import { CreateLocation, UpdateLocation } from '@57em-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { ILocationRepository } from './location.repository.interface';
 

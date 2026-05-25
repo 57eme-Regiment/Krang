@@ -1,9 +1,9 @@
-import {
-  createItemSchema,
-  itemParamsSchema,
-  updateItemSchema,
-} from '@/models/item/item.schema';
 import { IItemService } from '@/service/item/item.service.interface';
+import {
+  CreateItem,
+  ItemParams,
+  UpdateItem,
+} from '@57em-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';
 
@@ -20,36 +20,34 @@ export class ItemController {
   }
 
   async getById(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: ItemParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = itemParamsSchema.parse(req.params);
-    const inventory = await this.itemService.getById(id);
-    return reply.send(inventory);
+    const item = await this.itemService.getById(req.params.id);
+    return reply.send(item);
   }
 
-  async create(req: FastifyRequest, reply: FastifyReply) {
-    const data = createItemSchema.parse(req.body);
-    const inventory = await this.itemService.create(data);
-    return reply.status(201).send(inventory);
+  async create(
+    req: FastifyRequest<{ Body: CreateItem }>,
+    reply: FastifyReply,
+  ) {
+    const item = await this.itemService.create(req.body);
+    return reply.status(201).send(item);
   }
 
   async update(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: ItemParams; Body: UpdateItem }>,
     reply: FastifyReply,
   ) {
-    const { id } = itemParamsSchema.parse(req.params);
-    const data = updateItemSchema.parse(req.body);
-    const inventory = await this.itemService.update(id, data);
-    return reply.send(inventory);
+    const item = await this.itemService.update(req.params.id, req.body);
+    return reply.send(item);
   }
 
   async delete(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: ItemParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = itemParamsSchema.parse(req.params);
-    await this.itemService.delete(id);
+    await this.itemService.delete(req.params.id);
     return reply.status(204).send();
   }
 }

@@ -1,5 +1,5 @@
 import { Region } from '@/generated/client';
-import { CreateRegion, UpdateRegion } from '@/models/region/region.schema';
+import { CreateRegion, UpdateRegion } from '@57em-regiment/krang-api-contract';
 
 export interface IRegionRepository {
   findAll(): Promise<Region[]>;

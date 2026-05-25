@@ -1,5 +1,5 @@
 import { Location } from '@/generated/client';
-import { CreateLocation, UpdateLocation } from '@/models/location/location.schema';
+import { CreateLocation, UpdateLocation } from '@57em-regiment/krang-api-contract';
 import { ILocationRepository } from '@/repository/location/location.repository.interface';
 import { AppError } from '@/shared/errors/appError';
 import { inject, injectable } from 'tsyringe';

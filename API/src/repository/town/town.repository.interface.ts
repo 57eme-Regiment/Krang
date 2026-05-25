@@ -1,5 +1,5 @@
 import { Town } from '@/generated/client';
-import { CreateTown, UpdateTown } from '@/models/town/town.schema';
+import { CreateTown, UpdateTown } from '@57em-regiment/krang-api-contract';
 
 export interface ITownRepository {
   findAll(): Promise<Town[]>;

@@ -1,5 +1,5 @@
 import { Town } from '@/generated/client';
-import { CreateTown, UpdateTown } from '@/models/town/town.schema';
+import { CreateTown, UpdateTown } from '@57em-regiment/krang-api-contract';
 import { ITownRepository } from '@/repository/town/town.repository.interface';
 import { AppError } from '@/shared/errors/appError';
 import { inject, injectable } from 'tsyringe';

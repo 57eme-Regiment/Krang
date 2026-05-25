@@ -5,7 +5,8 @@
   "main": "dist/main.js",
   "scripts": {
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/main.ts",
-    "build": "tsc --project tsconfig.json",
+    "dev:all": "pnpm --filter @57em-regiment/krang-api-contract dev & pnpm dev",
+    "build": "pnpm --filter @57em-regiment/krang-api-contract build && tsc --project tsconfig.json",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
     "db:generate": "prisma generate",
@@ -18,6 +19,8 @@
   "license": "ISC",
   "packageManager": "pnpm@11.1.2",
   "dependencies": {
+    "@57em-regiment/krang-api-contract": "workspace:*",
+    "@fastify/type-provider-zod": "^1.0.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "fastify": "^5.0.0",
