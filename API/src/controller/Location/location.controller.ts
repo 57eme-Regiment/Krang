@@ -43,6 +43,14 @@ export class LocationController {
     return reply.status(201).send(location);
   }
 
+  async upsertRange(
+    req: FastifyRequest<{ Body: CreateLocation[] }>,
+    reply: FastifyReply,
+  ) {
+    const locations = await this.locationService.upsertRange(req.body);
+    return reply.send(locations);
+  }
+
   async update(
     req: FastifyRequest<{ Params: LocationParams; Body: UpdateLocation }>,
     reply: FastifyReply,

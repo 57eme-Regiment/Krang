@@ -8,5 +8,6 @@ export interface IRegionRepository {
   createRange(data: CreateRegion[]): Promise<Region[]>;
   update(id: string, data: UpdateRegion): Promise<Region>;
   upsert(data: CreateRegion): Promise<Region>;
+  upsertRange(data: CreateRegion[]): Promise<Region[]>;
   delete(id: string): Promise<void>;
 }

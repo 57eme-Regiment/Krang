@@ -40,6 +40,14 @@ export class TownController {
     return reply.status(201).send(town);
   }
 
+  async upsertRange(
+    req: FastifyRequest<{ Body: CreateTown[] }>,
+    reply: FastifyReply,
+  ) {
+    const towns = await this.townService.upsertRange(req.body);
+    return reply.send(towns);
+  }
+
   async update(
     req: FastifyRequest<{ Params: TownParams; Body: UpdateTown }>,
     reply: FastifyReply,

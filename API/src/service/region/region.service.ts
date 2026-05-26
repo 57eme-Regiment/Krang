@@ -38,6 +38,10 @@ export class RegionService implements IRegionService {
     return this.regionRepository.upsert(data);
   }
 
+  async upsertRange(data: CreateRegion[]): Promise<Region[]> {
+    return this.regionRepository.upsertRange(data);
+  }
+
   async delete(id: string): Promise<void> {
     await this.getById(id);
     return this.regionRepository.delete(id);

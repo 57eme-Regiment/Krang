@@ -50,6 +50,14 @@ export class RegionController {
     return reply.send(region);
   }
 
+  async upsertRange(
+    req: FastifyRequest<{ Body: CreateRegion[] }>,
+    reply: FastifyReply,
+  ) {
+    const regions = await this.regionService.upsertRange(req.body);
+    return reply.send(regions);
+  }
+
   async update(
     req: FastifyRequest<{ Params: RegionParams; Body: UpdateRegion }>,
     reply: FastifyReply,

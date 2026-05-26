@@ -34,6 +34,10 @@ export class LocationService implements ILocationService {
     return this.locationRepository.createRange(data);
   }
 
+  async upsertRange(data: CreateLocation[]): Promise<Location[]> {
+    return this.locationRepository.upsertRange(data);
+  }
+
   async update(id: string, data: UpdateLocation): Promise<Location> {
     await this.getById(id);
     return this.locationRepository.update(id, data);

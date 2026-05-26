@@ -36,6 +36,18 @@ export class RegionRepository implements IRegionRepository {
     });
   }
 
+  upsertRange(data: CreateRegion[]): Promise<Region[]> {
+    return this.db.context.$transaction(
+      data.map(({ name, ...rest }) =>
+        this.db.context.region.upsert({
+          where: { name },
+          create: { name, ...rest },
+          update: rest,
+        }),
+      ),
+    );
+  }
+
   async delete(id: string): Promise<void> {
     await this.db.context.region.delete({ where: { id } });
   }

@@ -57,6 +57,17 @@ export async function townRoutes(app: FastifyInstance) {
     ctrl.createRange.bind(ctrl),
   );
 
+  server.post(
+    '/upsertRange',
+    {
+      schema: {
+        body: createTownSchema.array(),
+        response: { 200: TownSchema.array() },
+      },
+    },
+    ctrl.upsertRange.bind(ctrl),
+  );
+
   server.put(
     '/:id',
     {

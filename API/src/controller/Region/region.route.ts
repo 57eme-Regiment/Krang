@@ -68,6 +68,17 @@ export async function regionRoutes(app: FastifyInstance) {
     ctrl.upsert.bind(ctrl),
   );
 
+  server.post(
+    '/upsertRange',
+    {
+      schema: {
+        body: createRegionSchema.array(),
+        response: { 200: RegionSchema.array() },
+      },
+    },
+    ctrl.upsertRange.bind(ctrl),
+  );
+
   server.put(
     '/:id',
     {

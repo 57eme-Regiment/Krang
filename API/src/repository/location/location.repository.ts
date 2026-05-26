@@ -27,6 +27,18 @@ export class LocationRepository implements ILocationRepository {
     return this.db.context.location.createManyAndReturn({ data });
   }
 
+  upsertRange(data: CreateLocation[]): Promise<Location[]> {
+    return this.db.context.$transaction(
+      data.map(l =>
+        this.db.context.location.upsert({
+          where: { longitude_latitude: { longitude: l.longitude, latitude: l.latitude } },
+          create: l,
+          update: { type: l.type, faction: l.faction, flags: l.flags, viewDirection: l.viewDirection, townId: l.townId },
+        }),
+      ),
+    );
+  }
+
   update(id: string, data: UpdateLocation): Promise<Location> {
     return this.db.context.location.update({ where: { id }, data });
   }
