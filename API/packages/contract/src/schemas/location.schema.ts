@@ -11,6 +11,7 @@ export const LocationSchema = z.object({
   longitude: z.number(),
   latitude: z.number(),
   regionId: z.uuid(),
+  townId: z.uuid(),
 });
 
 export const createLocationSchema = z.object({
@@ -22,6 +23,7 @@ export const createLocationSchema = z.object({
   longitude: z.number(),
   latitude: z.number(),
   regionId: z.uuid(),
+  townId: z.uuid(),
 });
 
 export const updateLocationSchema = createLocationSchema.partial();

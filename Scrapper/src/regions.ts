@@ -1,24 +1,14 @@
-import { contract, type CreateRegion } from '@57eme-regiment/krang-api-contract';
-import { initClient } from '@ts-rest/core';
+import { type CreateRegion, type Region } from '@57eme-regiment/krang-api-contract';
 import { fetchRegions } from '../api/war/warApi.api.js';
+import type { ApiClient } from './api.js';
 
-export const scrapRegion = async () => {
-  const api = initClient(contract, {
-    baseUrl: 'http://localhost:3000',
-    baseHeaders: {},
-  });
+export const scrapRegions = async (api: ApiClient): Promise<Region[]> => {
+  const names = await fetchRegions();
+  const body = names.map(name => ({ name }) satisfies CreateRegion);
 
-  const regions = await fetchRegions();
-
-  const body = regions.map(
-    r =>
-      ({
-        name: r,
-      }) satisfies CreateRegion,
-  );
-
-  const res = await api.region.createRange({ body });
-  if (res.status != 201) throw new Error('CreateRange Regions Failed');
+  const res = await api.region.upsertRange({ body });
+  if (res.status !== 200)
+    throw new Error('Region upsert failed', { cause: res });
 
   return res.body;
 };

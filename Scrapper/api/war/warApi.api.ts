@@ -16,7 +16,7 @@ export const fetchRegions = async (): Promise<string[]> => {
 
     return res;
   } catch (error) {
-    throw new Error(`Discord getRoles failed: ${error}`);
+    throw new Error(`fetchRegion failed`, { cause: error });
   }
 };
 
@@ -28,7 +28,7 @@ export const fetchTownsInRegions = async (
     const raw = await warApiClient.get<unknown>(path);
     return staticResponseSchema.parse(raw);
   } catch (error) {
-    throw new Error(`Discord getRoles failed: ${error}`);
+    throw new Error(`fetch Towns failed`, { cause: error });
   }
 };
 export const fetchLocationsInRegions = async (
@@ -39,6 +39,6 @@ export const fetchLocationsInRegions = async (
     const raw = await warApiClient.get<unknown>(path);
     return dynamicResponseSchema.parse(raw);
   } catch (error) {
-    throw new Error(`Discord getRoles failed: ${error}`);
+    throw new Error(`fetch Locaiton failed`, { cause: error });
   }
 };

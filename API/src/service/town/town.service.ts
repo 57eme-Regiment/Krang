@@ -30,6 +30,10 @@ export class TownService implements ITownService {
     return this.townRepository.createRange(data);
   }
 
+  async upsertRange(data: CreateTown[]): Promise<Town[]> {
+    return this.townRepository.upsertRange(data);
+  }
+
   async update(id: string, data: UpdateTown): Promise<Town> {
     await this.getById(id);
     return this.townRepository.update(id, data);

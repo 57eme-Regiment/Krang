@@ -24,6 +24,18 @@ export class TownRepository implements ITownRepository {
     return this.db.context.town.createManyAndReturn({ data });
   }
 
+  upsertRange(data: CreateTown[]): Promise<Town[]> {
+    return this.db.context.$transaction(
+      data.map(t =>
+        this.db.context.town.upsert({
+          where: { name_regionId: { name: t.name, regionId: t.regionId } },
+          create: t,
+          update: { longitude: t.longitude, latitude: t.latitude, mapMarkerType: t.mapMarkerType },
+        }),
+      ),
+    );
+  }
+
   update(id: string, data: UpdateTown): Promise<Town> {
     return this.db.context.town.update({ where: { id }, data });
   }

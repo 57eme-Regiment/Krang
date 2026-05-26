@@ -57,6 +57,17 @@ export async function locationRoutes(app: FastifyInstance) {
     ctrl.createRange.bind(ctrl),
   );
 
+  server.post(
+    '/upsertRange',
+    {
+      schema: {
+        body: createLocationSchema.array(),
+        response: { 200: LocationSchema.array() },
+      },
+    },
+    ctrl.upsertRange.bind(ctrl),
+  );
+
   server.put(
     '/:id',
     {

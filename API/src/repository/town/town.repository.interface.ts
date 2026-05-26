@@ -6,6 +6,7 @@ export interface ITownRepository {
   findById(id: string): Promise<Town | null>;
   create(data: CreateTown): Promise<Town>;
   createRange(data: CreateTown[]): Promise<Town[]>;
+  upsertRange(data: CreateTown[]): Promise<Town[]>;
   update(id: string, data: UpdateTown): Promise<Town>;
   delete(id: string): Promise<void>;
 }

@@ -36,6 +36,12 @@ export const locationContract = c.router({
     body: createLocationSchema.array(),
     responses: { 201: LocationSchema.array() },
   },
+  upsertRange: {
+    method: 'POST',
+    path: '/api/locations/upsertRange',
+    body: createLocationSchema.array(),
+    responses: { 200: LocationSchema.array() },
+  },
   update: {
     method: 'PUT',
     path: '/api/locations/:id',

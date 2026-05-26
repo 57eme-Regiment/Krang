@@ -13,5 +13,8 @@ model Location {
   regionId      String
   region        Region    @relation(fields: [regionId], references: [id])
 
+  townId        String
+  town          Town      @relation(fields: [townId], references: [id])
+
   @@unique([longitude, latitude])
 }
