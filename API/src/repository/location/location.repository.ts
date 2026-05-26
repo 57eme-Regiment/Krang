@@ -3,7 +3,7 @@ import { Database } from '@/infrastructure/database';
 import {
   CreateLocation,
   UpdateLocation,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { ILocationRepository } from './location.repository.interface';
 

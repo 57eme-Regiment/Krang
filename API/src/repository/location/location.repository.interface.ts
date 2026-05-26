@@ -2,7 +2,7 @@ import { Location } from '@/generated/client';
 import {
   CreateLocation,
   UpdateLocation,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 
 export interface ILocationRepository {
   findAll(): Promise<Location[]>;

@@ -3,7 +3,7 @@ import {
   CreateItem,
   ItemParams,
   UpdateItem,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';
 

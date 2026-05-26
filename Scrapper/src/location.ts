@@ -2,7 +2,7 @@ import {
   contract,
   type CreateLocation,
   type Region,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { initClient } from '@ts-rest/core';
 import { fetchLocationsInRegions } from '../api/war/warApi.api.js';
 
@@ -14,7 +14,6 @@ export const scrapLocation = async (regions: Region[]) => {
 
   regions.forEach(async region => {
     const response = await fetchLocationsInRegions(region.name);
-    console.log('🚀 ~ scrapLocation ~ response:', response);
 
     const body = response.mapItems.map(
       t =>
@@ -31,7 +30,6 @@ export const scrapLocation = async (regions: Region[]) => {
     );
 
     const res = await api.location.createRange({ body });
-    console.log('🚀 ~ scrapLocation ~ res:', res);
     if (res.status != 201)
       throw new Error('Town insertion Failed', { cause: res });
   });

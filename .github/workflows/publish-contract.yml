@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -23,7 +23,29 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@57em-regiment'
+          scope: '@57eme-regiment'
+
+      - name: Auto-bump minor version (main)
+        if: github.ref == 'refs/heads/main'
+        working-directory: API/packages/contract
+        run: |
+          LOCAL=$(node -p "require('./package.json').version")
+          PUBLISHED=$(npm view @57eme-regiment/krang-api-contract version --registry https://npm.pkg.github.com 2>/dev/null || echo "none")
+          echo "Local version: $LOCAL"
+          echo "Published version: $PUBLISHED"
+          if [ "$LOCAL" = "$PUBLISHED" ]; then
+            echo "Versions match — bumping minor"
+            npm version minor --no-git-tag-version
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add package.json
+            git commit -m "chore: bump contract minor version [skip ci]"
+            git push
+          else
+            echo "Local version differs from published — skipping auto-bump"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         working-directory: API
@@ -31,7 +53,7 @@ jobs:
 
       - name: Build contract
         working-directory: API
-        run: pnpm --filter @57em-regiment/krang-api-contract build
+        run: pnpm --filter @57eme-regiment/krang-api-contract build
 
       - name: Publish stable (main)
         if: github.ref == 'refs/heads/main'

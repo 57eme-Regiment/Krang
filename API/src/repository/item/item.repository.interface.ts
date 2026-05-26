@@ -1,5 +1,5 @@
 import { Item } from '@/generated/client';
-import { CreateItem, UpdateItem } from '@57em-regiment/krang-api-contract';
+import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 
 export interface IItemRepository {
   findAll(): Promise<Item[]>;

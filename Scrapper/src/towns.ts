@@ -2,7 +2,7 @@ import {
   contract,
   type CreateTown,
   type Region,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { initClient } from '@ts-rest/core';
 import { fetchTownsInRegions } from '../api/war/warApi.api.js';
 

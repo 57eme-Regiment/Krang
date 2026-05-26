@@ -1,5 +1,5 @@
 {
-  "name": "@57em-regiment/krang-api-contract",
+  "name": "@57eme-regiment/krang-api-contract",
   "version": "0.1.1",
   "description": "Krang API contract — shared between server and consumers",
   "main": "dist/index.js",

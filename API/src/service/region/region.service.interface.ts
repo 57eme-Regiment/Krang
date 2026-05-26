@@ -1,5 +1,5 @@
 import { Region } from '@/generated/client';
-import { CreateRegion, UpdateRegion } from '@57em-regiment/krang-api-contract';
+import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
 
 export interface IRegionService {
   getAll(): Promise<Region[]>;

@@ -1,6 +1,6 @@
 import { Region } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
-import { CreateRegion, UpdateRegion } from '@57em-regiment/krang-api-contract';
+import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { IRegionRepository } from './region.repository.interface';
 

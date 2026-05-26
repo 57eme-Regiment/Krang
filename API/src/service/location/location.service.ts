@@ -4,7 +4,7 @@ import { AppError } from '@/shared/errors/appError';
 import {
   CreateLocation,
   UpdateLocation,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { inject, injectable } from 'tsyringe';
 import type { ILocationService } from './location.service.interface';
 

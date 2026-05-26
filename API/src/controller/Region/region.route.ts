@@ -4,7 +4,7 @@ import {
   createRegionSchema,
   regionParamsSchema,
   updateRegionSchema,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';

@@ -1,6 +1,6 @@
 import { Item } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
-import { CreateItem, UpdateItem } from '@57em-regiment/krang-api-contract';
+import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 import { IItemRepository } from './item.repository.interface';
 

@@ -1,4 +1,4 @@
-import { contract, type CreateRegion } from '@57em-regiment/krang-api-contract';
+import { contract, type CreateRegion } from '@57eme-regiment/krang-api-contract';
 import { initClient } from '@ts-rest/core';
 import { fetchRegions } from '../api/war/warApi.api.js';
 

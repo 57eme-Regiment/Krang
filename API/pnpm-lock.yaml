@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@57em-regiment/krang-api-contract':
+      '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
       '@fastify/type-provider-zod':

@@ -1,5 +1,5 @@
 import { Item } from '@/generated/client';
-import { CreateItem, UpdateItem } from '@57em-regiment/krang-api-contract';
+import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 import { IItemRepository } from '@/repository/item/item.repository.interface';
 import { AppError } from '@/shared/errors/appError';
 import { inject, injectable } from 'tsyringe';

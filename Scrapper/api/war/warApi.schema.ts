@@ -2,7 +2,7 @@ import {
   Faction,
   FactionSchema,
   MapMarkerTypeSchema,
-} from '@57em-regiment/krang-api-contract';
+} from '@57eme-regiment/krang-api-contract';
 import { z } from 'zod';
 
 export const townSchema = z.object({
