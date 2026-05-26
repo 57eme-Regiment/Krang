@@ -10,11 +10,14 @@ export const scrapLocations = async (
   api: ApiClient,
   regions: Region[],
 ): Promise<void> => {
+  console.log('[Locations] Fetching all towns...');
   const allTownsRes = await api.town.getAll();
   if (allTownsRes.status !== 200)
     throw new Error('Failed to fetch towns', { cause: allTownsRes });
+  console.log(`[Locations] Processing ${regions.length} regions...`);
 
   for (const region of regions) {
+    process.stdout.write(`[Locations] ${region.name} — fetching...`);
     const dynamicData = (await fetchLocationsInRegions(
       region.name,
     )) as unknown as DynamicResponse;
@@ -44,6 +47,11 @@ export const scrapLocations = async (
         throw new Error(`Location upsert failed for region ${region.name}`, {
           cause: res,
         });
+      process.stdout.write(` ${res.body.length} locations\n`);
+    } else {
+      process.stdout.write(` 0 locations\n`);
     }
   }
+
+  console.log('[Locations] Done\n');
 };
