@@ -1,9 +1,11 @@
+import 'dotenv/config';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as crypto from 'crypto';
-import { scrapLocation } from './src/location.js';
-import { scrapRegion } from './src/regions.js';
-import { scrapTown } from './src/towns.js';
+import { createApiClient } from './src/api.js';
+import { scrapLocations } from './src/locations.js';
+import { scrapRegions } from './src/regions.js';
+import { scrapTowns } from './src/towns.js';
 
 interface ItemInfo {
   itemName: string;
@@ -144,10 +146,11 @@ async function scrapeWiki() {
 }
 
 async function main() {
-  // scrapeWiki();
-  const regions = await scrapRegion();
-  await scrapTown(regions);
-  await scrapLocation(regions);
+  const api = createApiClient(process.env.API_BASE_URL ?? 'http://localhost:3000');
+
+  const regions = await scrapRegions(api);
+  await scrapTowns(api, regions);
+  await scrapLocations(api, regions);
 }
 
 main();

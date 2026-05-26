@@ -20,7 +20,7 @@ export const staticResponseSchema = z.object({
   mapItemsC: z.array(z.any()),
   mapItemsW: z.array(z.any()),
   mapTextItems: townSchema.array(),
-  lastUpdated: z.number(),
+  lastUpdated: z.number().nullish(),
   version: z.number(),
 });
 
@@ -48,7 +48,7 @@ export const dynamicResponseSchema = z.object({
   mapItemsC: z.array(z.any()),
   mapItemsW: z.array(z.any()),
   mapTextItems: z.array(z.any()),
-  lastUpdated: z.number(),
+  lastUpdated: z.number().nullish(),
   version: z.number(),
 });
 
