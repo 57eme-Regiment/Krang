@@ -52,6 +52,7 @@ export type LocationMinAggregateOutputType = {
   longitude: number | null
   latitude: number | null
   regionId: string | null
+  townId: string | null
 }
 
 export type LocationMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type LocationMaxAggregateOutputType = {
   longitude: number | null
   latitude: number | null
   regionId: string | null
+  townId: string | null
 }
 
 export type LocationCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type LocationCountAggregateOutputType = {
   longitude: number
   latitude: number
   regionId: number
+  townId: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type LocationMinAggregateInputType = {
   longitude?: true
   latitude?: true
   regionId?: true
+  townId?: true
 }
 
 export type LocationMaxAggregateInputType = {
@@ -118,6 +122,7 @@ export type LocationMaxAggregateInputType = {
   longitude?: true
   latitude?: true
   regionId?: true
+  townId?: true
 }
 
 export type LocationCountAggregateInputType = {
@@ -130,6 +135,7 @@ export type LocationCountAggregateInputType = {
   longitude?: true
   latitude?: true
   regionId?: true
+  townId?: true
   _all?: true
 }
 
@@ -229,6 +235,7 @@ export type LocationGroupByOutputType = {
   longitude: number
   latitude: number
   regionId: string
+  townId: string
   _count: LocationCountAggregateOutputType | null
   _avg: LocationAvgAggregateOutputType | null
   _sum: LocationSumAggregateOutputType | null
@@ -264,7 +271,9 @@ export type LocationWhereInput = {
   longitude?: Prisma.FloatFilter<"Location"> | number
   latitude?: Prisma.FloatFilter<"Location"> | number
   regionId?: Prisma.StringFilter<"Location"> | string
+  townId?: Prisma.StringFilter<"Location"> | string
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
+  town?: Prisma.XOR<Prisma.TownScalarRelationFilter, Prisma.TownWhereInput>
 }
 
 export type LocationOrderByWithRelationInput = {
@@ -277,7 +286,9 @@ export type LocationOrderByWithRelationInput = {
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
+  townId?: Prisma.SortOrder
   region?: Prisma.RegionOrderByWithRelationInput
+  town?: Prisma.TownOrderByWithRelationInput
 }
 
 export type LocationWhereUniqueInput = Prisma.AtLeast<{
@@ -294,7 +305,9 @@ export type LocationWhereUniqueInput = Prisma.AtLeast<{
   longitude?: Prisma.FloatFilter<"Location"> | number
   latitude?: Prisma.FloatFilter<"Location"> | number
   regionId?: Prisma.StringFilter<"Location"> | string
+  townId?: Prisma.StringFilter<"Location"> | string
   region?: Prisma.XOR<Prisma.RegionScalarRelationFilter, Prisma.RegionWhereInput>
+  town?: Prisma.XOR<Prisma.TownScalarRelationFilter, Prisma.TownWhereInput>
 }, "id" | "longitude_latitude">
 
 export type LocationOrderByWithAggregationInput = {
@@ -307,6 +320,7 @@ export type LocationOrderByWithAggregationInput = {
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
+  townId?: Prisma.SortOrder
   _count?: Prisma.LocationCountOrderByAggregateInput
   _avg?: Prisma.LocationAvgOrderByAggregateInput
   _max?: Prisma.LocationMaxOrderByAggregateInput
@@ -327,6 +341,7 @@ export type LocationScalarWhereWithAggregatesInput = {
   longitude?: Prisma.FloatWithAggregatesFilter<"Location"> | number
   latitude?: Prisma.FloatWithAggregatesFilter<"Location"> | number
   regionId?: Prisma.StringWithAggregatesFilter<"Location"> | string
+  townId?: Prisma.StringWithAggregatesFilter<"Location"> | string
 }
 
 export type LocationCreateInput = {
@@ -339,6 +354,7 @@ export type LocationCreateInput = {
   longitude: number
   latitude: number
   region: Prisma.RegionCreateNestedOneWithoutLocationsInput
+  town: Prisma.TownCreateNestedOneWithoutLocationInput
 }
 
 export type LocationUncheckedCreateInput = {
@@ -351,6 +367,7 @@ export type LocationUncheckedCreateInput = {
   longitude: number
   latitude: number
   regionId: string
+  townId: string
 }
 
 export type LocationUpdateInput = {
@@ -363,6 +380,7 @@ export type LocationUpdateInput = {
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   region?: Prisma.RegionUpdateOneRequiredWithoutLocationsNestedInput
+  town?: Prisma.TownUpdateOneRequiredWithoutLocationNestedInput
 }
 
 export type LocationUncheckedUpdateInput = {
@@ -375,6 +393,7 @@ export type LocationUncheckedUpdateInput = {
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  townId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LocationCreateManyInput = {
@@ -387,6 +406,7 @@ export type LocationCreateManyInput = {
   longitude: number
   latitude: number
   regionId: string
+  townId: string
 }
 
 export type LocationUpdateManyMutationInput = {
@@ -410,6 +430,7 @@ export type LocationUncheckedUpdateManyInput = {
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
   regionId?: Prisma.StringFieldUpdateOperationsInput | string
+  townId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LocationLongitudeLatitudeCompoundUniqueInput = {
@@ -427,6 +448,7 @@ export type LocationCountOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
+  townId?: Prisma.SortOrder
 }
 
 export type LocationAvgOrderByAggregateInput = {
@@ -447,6 +469,7 @@ export type LocationMaxOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
+  townId?: Prisma.SortOrder
 }
 
 export type LocationMinOrderByAggregateInput = {
@@ -459,6 +482,7 @@ export type LocationMinOrderByAggregateInput = {
   longitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   regionId?: Prisma.SortOrder
+  townId?: Prisma.SortOrder
 }
 
 export type LocationSumOrderByAggregateInput = {
@@ -533,6 +557,48 @@ export type LocationUncheckedUpdateManyWithoutRegionNestedInput = {
   deleteMany?: Prisma.LocationScalarWhereInput | Prisma.LocationScalarWhereInput[]
 }
 
+export type LocationCreateNestedManyWithoutTownInput = {
+  create?: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput> | Prisma.LocationCreateWithoutTownInput[] | Prisma.LocationUncheckedCreateWithoutTownInput[]
+  connectOrCreate?: Prisma.LocationCreateOrConnectWithoutTownInput | Prisma.LocationCreateOrConnectWithoutTownInput[]
+  createMany?: Prisma.LocationCreateManyTownInputEnvelope
+  connect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+}
+
+export type LocationUncheckedCreateNestedManyWithoutTownInput = {
+  create?: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput> | Prisma.LocationCreateWithoutTownInput[] | Prisma.LocationUncheckedCreateWithoutTownInput[]
+  connectOrCreate?: Prisma.LocationCreateOrConnectWithoutTownInput | Prisma.LocationCreateOrConnectWithoutTownInput[]
+  createMany?: Prisma.LocationCreateManyTownInputEnvelope
+  connect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+}
+
+export type LocationUpdateManyWithoutTownNestedInput = {
+  create?: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput> | Prisma.LocationCreateWithoutTownInput[] | Prisma.LocationUncheckedCreateWithoutTownInput[]
+  connectOrCreate?: Prisma.LocationCreateOrConnectWithoutTownInput | Prisma.LocationCreateOrConnectWithoutTownInput[]
+  upsert?: Prisma.LocationUpsertWithWhereUniqueWithoutTownInput | Prisma.LocationUpsertWithWhereUniqueWithoutTownInput[]
+  createMany?: Prisma.LocationCreateManyTownInputEnvelope
+  set?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  disconnect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  delete?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  connect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  update?: Prisma.LocationUpdateWithWhereUniqueWithoutTownInput | Prisma.LocationUpdateWithWhereUniqueWithoutTownInput[]
+  updateMany?: Prisma.LocationUpdateManyWithWhereWithoutTownInput | Prisma.LocationUpdateManyWithWhereWithoutTownInput[]
+  deleteMany?: Prisma.LocationScalarWhereInput | Prisma.LocationScalarWhereInput[]
+}
+
+export type LocationUncheckedUpdateManyWithoutTownNestedInput = {
+  create?: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput> | Prisma.LocationCreateWithoutTownInput[] | Prisma.LocationUncheckedCreateWithoutTownInput[]
+  connectOrCreate?: Prisma.LocationCreateOrConnectWithoutTownInput | Prisma.LocationCreateOrConnectWithoutTownInput[]
+  upsert?: Prisma.LocationUpsertWithWhereUniqueWithoutTownInput | Prisma.LocationUpsertWithWhereUniqueWithoutTownInput[]
+  createMany?: Prisma.LocationCreateManyTownInputEnvelope
+  set?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  disconnect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  delete?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  connect?: Prisma.LocationWhereUniqueInput | Prisma.LocationWhereUniqueInput[]
+  update?: Prisma.LocationUpdateWithWhereUniqueWithoutTownInput | Prisma.LocationUpdateWithWhereUniqueWithoutTownInput[]
+  updateMany?: Prisma.LocationUpdateManyWithWhereWithoutTownInput | Prisma.LocationUpdateManyWithWhereWithoutTownInput[]
+  deleteMany?: Prisma.LocationScalarWhereInput | Prisma.LocationScalarWhereInput[]
+}
+
 export type LocationCreateWithoutRegionInput = {
   id?: string
   type: $Enums.LocationType
@@ -542,6 +608,7 @@ export type LocationCreateWithoutRegionInput = {
   viewDirection?: number
   longitude: number
   latitude: number
+  town: Prisma.TownCreateNestedOneWithoutLocationInput
 }
 
 export type LocationUncheckedCreateWithoutRegionInput = {
@@ -553,6 +620,7 @@ export type LocationUncheckedCreateWithoutRegionInput = {
   viewDirection?: number
   longitude: number
   latitude: number
+  townId: string
 }
 
 export type LocationCreateOrConnectWithoutRegionInput = {
@@ -594,6 +662,57 @@ export type LocationScalarWhereInput = {
   longitude?: Prisma.FloatFilter<"Location"> | number
   latitude?: Prisma.FloatFilter<"Location"> | number
   regionId?: Prisma.StringFilter<"Location"> | string
+  townId?: Prisma.StringFilter<"Location"> | string
+}
+
+export type LocationCreateWithoutTownInput = {
+  id?: string
+  type: $Enums.LocationType
+  faction: $Enums.Faction
+  iconType?: number
+  flags?: number
+  viewDirection?: number
+  longitude: number
+  latitude: number
+  region: Prisma.RegionCreateNestedOneWithoutLocationsInput
+}
+
+export type LocationUncheckedCreateWithoutTownInput = {
+  id?: string
+  type: $Enums.LocationType
+  faction: $Enums.Faction
+  iconType?: number
+  flags?: number
+  viewDirection?: number
+  longitude: number
+  latitude: number
+  regionId: string
+}
+
+export type LocationCreateOrConnectWithoutTownInput = {
+  where: Prisma.LocationWhereUniqueInput
+  create: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput>
+}
+
+export type LocationCreateManyTownInputEnvelope = {
+  data: Prisma.LocationCreateManyTownInput | Prisma.LocationCreateManyTownInput[]
+  skipDuplicates?: boolean
+}
+
+export type LocationUpsertWithWhereUniqueWithoutTownInput = {
+  where: Prisma.LocationWhereUniqueInput
+  update: Prisma.XOR<Prisma.LocationUpdateWithoutTownInput, Prisma.LocationUncheckedUpdateWithoutTownInput>
+  create: Prisma.XOR<Prisma.LocationCreateWithoutTownInput, Prisma.LocationUncheckedCreateWithoutTownInput>
+}
+
+export type LocationUpdateWithWhereUniqueWithoutTownInput = {
+  where: Prisma.LocationWhereUniqueInput
+  data: Prisma.XOR<Prisma.LocationUpdateWithoutTownInput, Prisma.LocationUncheckedUpdateWithoutTownInput>
+}
+
+export type LocationUpdateManyWithWhereWithoutTownInput = {
+  where: Prisma.LocationScalarWhereInput
+  data: Prisma.XOR<Prisma.LocationUpdateManyMutationInput, Prisma.LocationUncheckedUpdateManyWithoutTownInput>
 }
 
 export type LocationCreateManyRegionInput = {
@@ -605,6 +724,7 @@ export type LocationCreateManyRegionInput = {
   viewDirection?: number
   longitude: number
   latitude: number
+  townId: string
 }
 
 export type LocationUpdateWithoutRegionInput = {
@@ -616,6 +736,7 @@ export type LocationUpdateWithoutRegionInput = {
   viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  town?: Prisma.TownUpdateOneRequiredWithoutLocationNestedInput
 }
 
 export type LocationUncheckedUpdateWithoutRegionInput = {
@@ -627,6 +748,7 @@ export type LocationUncheckedUpdateWithoutRegionInput = {
   viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  townId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LocationUncheckedUpdateManyWithoutRegionInput = {
@@ -638,6 +760,55 @@ export type LocationUncheckedUpdateManyWithoutRegionInput = {
   viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
   longitude?: Prisma.FloatFieldUpdateOperationsInput | number
   latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  townId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type LocationCreateManyTownInput = {
+  id?: string
+  type: $Enums.LocationType
+  faction: $Enums.Faction
+  iconType?: number
+  flags?: number
+  viewDirection?: number
+  longitude: number
+  latitude: number
+  regionId: string
+}
+
+export type LocationUpdateWithoutTownInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
+  faction?: Prisma.EnumFactionFieldUpdateOperationsInput | $Enums.Faction
+  iconType?: Prisma.IntFieldUpdateOperationsInput | number
+  flags?: Prisma.IntFieldUpdateOperationsInput | number
+  viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  region?: Prisma.RegionUpdateOneRequiredWithoutLocationsNestedInput
+}
+
+export type LocationUncheckedUpdateWithoutTownInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
+  faction?: Prisma.EnumFactionFieldUpdateOperationsInput | $Enums.Faction
+  iconType?: Prisma.IntFieldUpdateOperationsInput | number
+  flags?: Prisma.IntFieldUpdateOperationsInput | number
+  viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type LocationUncheckedUpdateManyWithoutTownInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumLocationTypeFieldUpdateOperationsInput | $Enums.LocationType
+  faction?: Prisma.EnumFactionFieldUpdateOperationsInput | $Enums.Faction
+  iconType?: Prisma.IntFieldUpdateOperationsInput | number
+  flags?: Prisma.IntFieldUpdateOperationsInput | number
+  viewDirection?: Prisma.IntFieldUpdateOperationsInput | number
+  longitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  latitude?: Prisma.FloatFieldUpdateOperationsInput | number
+  regionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -652,7 +823,9 @@ export type LocationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   longitude?: boolean
   latitude?: boolean
   regionId?: boolean
+  townId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["location"]>
 
 export type LocationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -665,7 +838,9 @@ export type LocationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   longitude?: boolean
   latitude?: boolean
   regionId?: boolean
+  townId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["location"]>
 
 export type LocationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -678,7 +853,9 @@ export type LocationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   longitude?: boolean
   latitude?: boolean
   regionId?: boolean
+  townId?: boolean
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["location"]>
 
 export type LocationSelectScalar = {
@@ -691,23 +868,28 @@ export type LocationSelectScalar = {
   longitude?: boolean
   latitude?: boolean
   regionId?: boolean
+  townId?: boolean
 }
 
-export type LocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "faction" | "iconType" | "flags" | "viewDirection" | "longitude" | "latitude" | "regionId", ExtArgs["result"]["location"]>
+export type LocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "faction" | "iconType" | "flags" | "viewDirection" | "longitude" | "latitude" | "regionId" | "townId", ExtArgs["result"]["location"]>
 export type LocationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }
 export type LocationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }
 export type LocationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   region?: boolean | Prisma.RegionDefaultArgs<ExtArgs>
+  town?: boolean | Prisma.TownDefaultArgs<ExtArgs>
 }
 
 export type $LocationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Location"
   objects: {
     region: Prisma.$RegionPayload<ExtArgs>
+    town: Prisma.$TownPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -719,6 +901,7 @@ export type $LocationPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     longitude: number
     latitude: number
     regionId: string
+    townId: string
   }, ExtArgs["result"]["location"]>
   composites: {}
 }
@@ -1114,6 +1297,7 @@ readonly fields: LocationFieldRefs;
 export interface Prisma__LocationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   region<T extends Prisma.RegionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RegionDefaultArgs<ExtArgs>>): Prisma.Prisma__RegionClient<runtime.Types.Result.GetResult<Prisma.$RegionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  town<T extends Prisma.TownDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TownDefaultArgs<ExtArgs>>): Prisma.Prisma__TownClient<runtime.Types.Result.GetResult<Prisma.$TownPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1152,6 +1336,7 @@ export interface LocationFieldRefs {
   readonly longitude: Prisma.FieldRef<"Location", 'Float'>
   readonly latitude: Prisma.FieldRef<"Location", 'Float'>
   readonly regionId: Prisma.FieldRef<"Location", 'String'>
+  readonly townId: Prisma.FieldRef<"Location", 'String'>
 }
     
 
