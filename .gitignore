@@ -1,1 +1,4 @@
 Scrapper/.npmrc
+.pnpm-store
+.devcontainer
+.vscode
