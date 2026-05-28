@@ -34,6 +34,20 @@ export async function itemRoutes(app: FastifyInstance) {
     },
   }, ctrl.create.bind(ctrl));
 
+  server.post('/upsert', {
+    schema: {
+      body: createItemSchema,
+      response: { 200: ItemSchema },
+    },
+  }, ctrl.upsert.bind(ctrl));
+
+  server.post('/upsertRange', {
+    schema: {
+      body: createItemSchema.array(),
+      response: { 200: ItemSchema.array() },
+    },
+  }, ctrl.upsertRange.bind(ctrl));
+
   server.put('/:id', {
     schema: {
       params: itemParamsSchema,

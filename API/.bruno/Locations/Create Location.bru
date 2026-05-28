@@ -1,0 +1,25 @@
+meta {
+  name: Create Location
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/locations
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "type": "STORAGE_DEPOT",
+    "faction": "NEUTRAL",
+    "iconType": 0,
+    "flags": 0,
+    "viewDirection": 0,
+    "longitude": -0.1758,
+    "latitude": 0.3420,
+    "regionId": "{{regionId}}",
+    "townId": "{{townId}}"
+  }
+}

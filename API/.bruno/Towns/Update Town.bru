@@ -1,0 +1,18 @@
+meta {
+  name: Update Town
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/towns/{{townId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Buckler Sound Updated",
+    "mapMarkerType": "MINOR"
+  }
+}

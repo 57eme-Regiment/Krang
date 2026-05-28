@@ -26,6 +26,14 @@ export class ItemService implements IItemService {
     return this.itemRepository.create(data);
   }
 
+  async upsert(data: CreateItem): Promise<Item> {
+    return this.itemRepository.upsert(data);
+  }
+
+  async upsertRange(data: CreateItem[]): Promise<Item[]> {
+    return this.itemRepository.upsertRange(data);
+  }
+
   async update(id: string, data: UpdateItem): Promise<Item> {
     await this.getById(id);
     return this.itemRepository.update(id, data);

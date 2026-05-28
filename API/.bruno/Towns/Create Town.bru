@@ -1,0 +1,21 @@
+meta {
+  name: Create Town
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/towns
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Buckler Sound",
+    "longitude": -0.1758,
+    "latitude": 0.3420,
+    "regionId": "{{regionId}}",
+    "mapMarkerType": "MAJOR"
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Update Location
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/locations/{{locationId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "faction": "COLONIAL",
+    "viewDirection": 180
+  }
+}

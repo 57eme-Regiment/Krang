@@ -1,0 +1,30 @@
+meta {
+  name: Create Range Towns
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/towns/Range
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Buckler Sound",
+      "longitude": -0.1758,
+      "latitude": 0.3420,
+      "regionId": "{{regionId}}",
+      "mapMarkerType": "MAJOR"
+    },
+    {
+      "name": "Iron's End",
+      "longitude": -0.2145,
+      "latitude": 0.2987,
+      "regionId": "{{regionId}}",
+      "mapMarkerType": "MINOR"
+    }
+  ]
+}

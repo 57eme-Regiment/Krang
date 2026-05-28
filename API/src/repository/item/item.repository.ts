@@ -16,6 +16,28 @@ export class ItemRepository implements IItemRepository {
   create(data: CreateItem): Promise<Item> {
     return this.db.context.item.create({ data });
   }
+
+  upsert(data: CreateItem): Promise<Item> {
+    const { name, ...rest } = data;
+    return this.db.context.item.upsert({
+      where: { name },
+      create: data,
+      update: rest,
+    });
+  }
+
+  upsertRange(data: CreateItem[]): Promise<Item[]> {
+    return this.db.context.$transaction(
+      data.map(({ name, ...rest }) =>
+        this.db.context.item.upsert({
+          where: { name },
+          create: { name, ...rest },
+          update: rest,
+        }),
+      ),
+    );
+  }
+
   update(id: string, data: UpdateItem): Promise<Item> {
     return this.db.context.item.update({ where: { id }, data });
   }

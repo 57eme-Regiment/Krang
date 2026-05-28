@@ -1,0 +1,38 @@
+meta {
+  name: Create Range Locations
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/locations/Range
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "type": "STORAGE_DEPOT",
+      "faction": "NEUTRAL",
+      "iconType": 0,
+      "flags": 0,
+      "viewDirection": 0,
+      "longitude": -0.1758,
+      "latitude": 0.3420,
+      "regionId": "{{regionId}}",
+      "townId": "{{townId}}"
+    },
+    {
+      "type": "SEAPORT",
+      "faction": "WARDEN",
+      "iconType": 1,
+      "flags": 0,
+      "viewDirection": 90,
+      "longitude": -0.2145,
+      "latitude": 0.2987,
+      "regionId": "{{regionId}}",
+      "townId": "{{townId}}"
+    }
+  ]
+}

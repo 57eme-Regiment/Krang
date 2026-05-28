@@ -1,0 +1,30 @@
+meta {
+  name: Upsert Range Towns
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/towns/upsertRange
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Buckler Sound",
+      "longitude": -0.1758,
+      "latitude": 0.3420,
+      "regionId": "{{regionId}}",
+      "mapMarkerType": "MAJOR"
+    },
+    {
+      "name": "Iron's End",
+      "longitude": -0.2145,
+      "latitude": 0.2987,
+      "regionId": "{{regionId}}",
+      "mapMarkerType": "MINOR"
+    }
+  ]
+}

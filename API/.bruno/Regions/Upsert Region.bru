@@ -1,0 +1,18 @@
+meta {
+  name: Upsert Region
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/regions/upsert
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Deadlands",
+    "gameRegionId": 1
+  }
+}

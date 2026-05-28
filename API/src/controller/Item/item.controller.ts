@@ -35,6 +35,22 @@ export class ItemController {
     return reply.status(201).send(item);
   }
 
+  async upsert(
+    req: FastifyRequest<{ Body: CreateItem }>,
+    reply: FastifyReply,
+  ) {
+    const item = await this.itemService.upsert(req.body);
+    return reply.send(item);
+  }
+
+  async upsertRange(
+    req: FastifyRequest<{ Body: CreateItem[] }>,
+    reply: FastifyReply,
+  ) {
+    const items = await this.itemService.upsertRange(req.body);
+    return reply.send(items);
+  }
+
   async update(
     req: FastifyRequest<{ Params: ItemParams; Body: UpdateItem }>,
     reply: FastifyReply,

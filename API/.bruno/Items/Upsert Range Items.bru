@@ -1,0 +1,40 @@
+meta {
+  name: Upsert Range Items
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/items/upsertRange
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Argenti r.II Rifle",
+      "shortName": "Argenti",
+      "category": "SMALL_ARMS",
+      "superClass": "MATERIAL",
+      "class": "REFINED_MATERIAL",
+      "faction": "COLONIAL",
+      "nbByCrate": 10,
+      "maxQuantity": 300,
+      "icon": null,
+      "attributes": {}
+    },
+    {
+      "name": "Blakerow 871",
+      "shortName": "Blakerow",
+      "category": "SMALL_ARMS",
+      "superClass": "MATERIAL",
+      "class": "REFINED_MATERIAL",
+      "faction": "WARDEN",
+      "nbByCrate": 10,
+      "maxQuantity": 300,
+      "icon": null,
+      "attributes": {}
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Upsert Range Regions
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/regions/upsertRange
+  body: json
+  auth: none
+}
+
+body:json {
+  [
+    {
+      "name": "Deadlands",
+      "gameRegionId": 1
+    },
+    {
+      "name": "Farranac Coast",
+      "gameRegionId": 2
+    },
+    {
+      "name": "Weathered Expanse",
+      "gameRegionId": 3
+    }
+  ]
+}

@@ -5,6 +5,8 @@ export interface IItemService {
   getAll(): Promise<Item[]>;
   getById(id: string): Promise<Item>;
   create(data: CreateItem): Promise<Item>;
+  upsert(data: CreateItem): Promise<Item>;
+  upsertRange(data: CreateItem[]): Promise<Item[]>;
   update(id: string, data: UpdateItem): Promise<Item>;
   delete(id: string): Promise<void>;
 }

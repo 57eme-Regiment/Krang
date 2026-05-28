@@ -1,0 +1,26 @@
+meta {
+  name: Create Item
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/items
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Argenti r.II Rifle",
+    "shortName": "Argenti",
+    "category": "SMALL_ARMS",
+    "superClass": "MATERIAL",
+    "class": "REFINED_MATERIAL",
+    "faction": "COLONIAL",
+    "nbByCrate": 10,
+    "maxQuantity": 300,
+    "icon": null,
+    "attributes": {}
+  }
+}
