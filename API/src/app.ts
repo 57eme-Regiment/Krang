@@ -1,6 +1,10 @@
 import { env } from '@/config/env';
 import { errorHandler } from '@/shared/errors/errorHandler';
-import { serializerCompiler, validatorCompiler } from '@fastify/type-provider-zod';
+import cors from '@fastify/cors';
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
 import { itemRoutes } from './controller/Item/item.route';
 import { locationRoutes } from './controller/Location/location.route';
@@ -12,6 +16,11 @@ export function buildApp() {
     logger: {
       level: env.NODE_ENV === 'production' ? 'info' : 'debug',
     },
+  });
+
+  app.register(cors, {
+    origin: env.CORS_ORIGINS,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   });
 
   app.setValidatorCompiler(validatorCompiler);
