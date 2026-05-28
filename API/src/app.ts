@@ -8,6 +8,7 @@ import {
 import Fastify from 'fastify';
 import { itemRoutes } from './controller/Item/item.route';
 import { locationRoutes } from './controller/Location/location.route';
+import { maintenanceRoutes } from './controller/Maintenance/maintenance.route';
 import { regionRoutes } from './controller/Region/region.route';
 import { townRoutes } from './controller/Town/town.route';
 
@@ -36,6 +37,7 @@ export function buildApp() {
   app.register(regionRoutes, { prefix: '/api/regions' });
   app.register(townRoutes, { prefix: '/api/towns' });
   app.register(locationRoutes, { prefix: '/api/locations' });
+  app.register(maintenanceRoutes, { prefix: '/api/maintenance' });
 
   return app;
 }

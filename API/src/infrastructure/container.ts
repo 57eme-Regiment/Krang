@@ -1,5 +1,6 @@
 import { ItemController } from '@/controller/Item/item.controller';
 import { LocationController } from '@/controller/Location/location.controller';
+import { MaintenanceController } from '@/controller/Maintenance/maintenance.controller';
 import { RegionController } from '@/controller/Region/region.controller';
 import { TownController } from '@/controller/Town/town.controller';
 import { ItemRepository } from '@/repository/item/item.repository';
@@ -14,6 +15,8 @@ import { ItemService } from '@/service/item/item.service';
 import { IItemService } from '@/service/item/item.service.interface';
 import { LocationService } from '@/service/location/location.service';
 import { ILocationService } from '@/service/location/location.service.interface';
+import { MaintenanceService } from '@/service/maintenance/maintenance.service';
+import { IMaintenanceService } from '@/service/maintenance/maintenance.service.interface';
 import { RegionService } from '@/service/region/region.service';
 import { IRegionService } from '@/service/region/region.service.interface';
 import { TownService } from '@/service/town/town.service';
@@ -28,7 +31,10 @@ container.registerSingleton<IItemRepository>('IItemRepository', ItemRepository);
 container.registerSingleton<IItemService>('IItemService', ItemService);
 container.registerSingleton(ItemController);
 
-container.registerSingleton<IRegionRepository>('IRegionRepository', RegionRepository);
+container.registerSingleton<IRegionRepository>(
+  'IRegionRepository',
+  RegionRepository,
+);
 container.registerSingleton<IRegionService>('IRegionService', RegionService);
 container.registerSingleton(RegionController);
 
@@ -36,8 +42,20 @@ container.registerSingleton<ITownRepository>('ITownRepository', TownRepository);
 container.registerSingleton<ITownService>('ITownService', TownService);
 container.registerSingleton(TownController);
 
-container.registerSingleton<ILocationRepository>('ILocationRepository', LocationRepository);
-container.registerSingleton<ILocationService>('ILocationService', LocationService);
+container.registerSingleton<ILocationRepository>(
+  'ILocationRepository',
+  LocationRepository,
+);
+container.registerSingleton<ILocationService>(
+  'ILocationService',
+  LocationService,
+);
 container.registerSingleton(LocationController);
+
+container.registerSingleton<IMaintenanceService>(
+  'IMaintenanceService',
+  MaintenanceService,
+);
+container.registerSingleton(MaintenanceController);
 
 export { container };
