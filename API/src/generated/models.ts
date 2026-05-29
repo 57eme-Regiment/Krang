@@ -8,8 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Item.js'
-export type * from './models/Location.js'
-export type * from './models/Region.js'
-export type * from './models/Town.js'
-export type * from './commonInputTypes.js'
+export type * from './models/Item'
+export type * from './models/Location'
+export type * from './models/Region'
+export type * from './models/Town'
+export type * from './commonInputTypes'
