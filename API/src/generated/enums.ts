@@ -10,6 +10,7 @@
 */
 
 export const Category = {
+  NONE: 'NONE',
   SMALL_ARMS: 'SMALL_ARMS',
   HEAVY_ARMS: 'HEAVY_ARMS',
   HEAVY_AMMUNITION: 'HEAVY_AMMUNITION',
@@ -28,6 +29,7 @@ export type Category = (typeof Category)[keyof typeof Category]
 
 
 export const SuperClass = {
+  NONE: 'NONE',
   MATERIAL: 'MATERIAL',
   MAGAZINE: 'MAGAZINE',
   ARTILLERY_AMMO: 'ARTILLERY_AMMO',
@@ -114,6 +116,7 @@ export type SuperClass = (typeof SuperClass)[keyof typeof SuperClass]
 
 
 export const Class = {
+  NONE: 'NONE',
   REFINED_MATERIAL: 'REFINED_MATERIAL',
   RIFLE_AMMO: 'RIFLE_AMMO',
   REVOLVER_AMMO: 'REVOLVER_AMMO',

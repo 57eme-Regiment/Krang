@@ -8,8 +8,8 @@ datasource db {
   provider = "postgresql"
 }
 
-//TODO Update this
 enum Category {
+  NONE // placeholder. no entry should have this
   SMALL_ARMS
   HEAVY_ARMS
   HEAVY_AMMUNITION
@@ -24,8 +24,8 @@ enum Category {
   AIRCRAFT_PARTS
 }
 
-//TODO Update this
 enum SuperClass {
+  NONE // placeholder. no entry should have this
   MATERIAL
   MAGAZINE
   ARTILLERY_AMMO
@@ -108,8 +108,8 @@ enum SuperClass {
   MOUNTED_ANTI_TANK_RIFLE
 }
 
-//TODO Update this
 enum Class {
+  NONE // placeholder. no entry should have this
   REFINED_MATERIAL
   RIFLE_AMMO
   REVOLVER_AMMO
