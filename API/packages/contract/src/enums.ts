@@ -18,7 +18,7 @@ export type Category = (typeof Category)[keyof typeof Category];
 export const CategorySchema = z.enum(Category);
 
 export const SuperClass = {
-  NONE: '',
+  NONE: 'NONE',
   MATERIAL: 'MATERIAL',
   MAGAZINE: 'MAGAZINE',
   ARTILLERY_AMMO: 'ARTILLERY_AMMO',
@@ -104,7 +104,7 @@ export type SuperClass = (typeof SuperClass)[keyof typeof SuperClass];
 export const SuperClassSchema = z.enum(SuperClass);
 
 export const Class = {
-  NONE: '',
+  NONE: 'NONE',
   REFINED_MATERIAL: 'REFINED_MATERIAL',
   RIFLE_AMMO: 'RIFLE_AMMO',
   REVOLVER_AMMO: 'REVOLVER_AMMO',
@@ -205,9 +205,9 @@ export const Class = {
   BICYCLE: 'BICYCLE',
   ANTI_TANK_RIFLE: 'ANTI_TANK_RIFLE',
   BORDER_BASE: 'BORDER_BASE',
-  SHOTGUN: 'SHOTTGUN',
+  SHOTGUN: 'SHOTGUN',
   BAYONET: 'BAYONET',
-  SHOTGUN_AMMO: 'SHOTTGUN_AMMO',
+  SHOTGUN_AMMO: 'SHOTGUN_AMMO',
   BATTLESHIP: 'BATTLESHIP',
   SPAWN: 'SPAWN',
   WARDEN_SNOW_UNIFORM: 'WARDEN_SNOW_UNIFORM',
