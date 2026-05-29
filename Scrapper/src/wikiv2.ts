@@ -61,6 +61,7 @@ const superClassName: Set<string> = new Set();
 const categoryName: Set<string> = new Set();
 
 const getItemInfo = async (title: string) => {
+	let isundef = false;
 	while(true) {
 		try {
 			const url = `https://foxhole.wiki.gg/api.php?action=parse&page=${encodeURIComponent(title)}&prop=text&format=json`;
@@ -87,10 +88,20 @@ const getItemInfo = async (title: string) => {
 				.find('a.image')
 				.attr('href') || '';
 				
+			const chassisText = infoBox
+				.find('div[data-source="ChassisName"]')
+				.children()
+				.first()
+				.text();
 			const chassis = infoBox
 				.find('div[data-source="ChassisName"]')
 				.children()
 				.last()
+				.text();
+			const typeText = infoBox
+				.find('div[data-source="type"]')
+				.children()
+				.first()
 				.text();
 			const type = infoBox
 				.find('div[data-source="type"]')
@@ -114,34 +125,46 @@ const getItemInfo = async (title: string) => {
 				.text();
 				
 			let category;
+			let superClass;
+			let class_;
+			
+			const rawChassis = chassis.toUpperCase().trim().replace(/-|&|\/| /g, '_') || '';
+			const rawType = type.toUpperCase().trim().replace(/-|&|\/| /g, '_') || '';
+
+			const superClassRaw = chassisText === "Super Class" ? rawChassis : typeText === "Super Class" ? rawType : 'NONE';
+			superClassName.add(superClassRaw);
+
+			const classRaw = chassisText === "Class" ? rawChassis : typeText === "Class" ? rawType : 'NONE';
+			className.add(classRaw);
+
 			try {
 				if (categoryRaw === "" && disableThreshold !== "")
-					category = CategorySchema.parse(`VEHICLE`)
+					category = CategorySchema.parse(`VEHICLE`);
 				else
 					category = CategorySchema.parse(categoryRaw);
 			} catch (e) {
 				console.error(`Error parsing category (${categoryRaw}) for ${title}`);
-				return undefined;
+				// return undefined;
+				isundef = true;
 			}
 			
-			const superClassRaw = chassis ? type.toUpperCase().trim().replace(/-|&|\/| /g, '_') : '';
-			let superClass;
 			try {
 				superClass = SuperClassSchema.parse(superClassRaw);
 			} catch (e) {
 				console.error(`Error parsing super class (${superClassRaw}) for ${title}`);
-				return undefined;
+				// return undefined;
+				isundef = true;
 			}
 			
-			const classRaw = chassis ? chassis.toUpperCase().trim().replace(/-|&|\/| /g, '_') : type.toUpperCase().trim().replace(/-|&|\/| /g, '_');
-			let class_;
 			try {
 				class_ = ClassSchema.parse(classRaw);
 			} catch (e) {
 				console.error(`Error parsing class (${classRaw}) for ${title}`);
-				return undefined;
+				// return undefined;
+				isundef = true;
 			}
 
+			if (isundef) return undefined;
 			
 			const maxQuantity = categoryRaw === "MATERIAL" && (superClassRaw === "LIQUID" || superClassRaw === "LARGE_MATERIAL") ? 100 : 300;
 			
@@ -160,7 +183,9 @@ const getItemInfo = async (title: string) => {
 	
 			return itemInfo;
 		} catch (e: any) {
-			console.error(`Error fetching item info for ${title}:`, e.message);
+			// the API has a rate limit that we hit about ~120 requests every minute.
+			// with this loop, it will eventually finish but it'll take time.
+			console.error(`Error fetching item info for ${title}:`, e.message, `Retrying in 10 seconds...`);
 			await sleep(10000);
 		}
 	}
@@ -180,18 +205,19 @@ export async function scrapWikiV2(api: ApiClient) {
 	for (let i = 0; i < total; i++) {
 		const title = titles[i];
 		if (!title) continue;
-		console.log(`Processing ${i + 1}/${total} (${total - i - 1} left) : ${title}...`);
 		const itemInfo = await getItemInfo(title!);
 		if (itemInfo) {
+			console.log(`[${i + 1}/${total}] Processing ${title}...`);
 			try {
 				const parsedItem = createItemSchema.parse(itemInfo);
-				console.log(`Parsed item:`, parsedItem);
-				// await api.item.create({
+				// await api.item.upsert({
 				// 	body: parsedItem,
-				// });
+				// })
 			} catch (e) {
 				console.error(`Validation error for ${title}:`, e);
 			}
+		} else {
+			console.error(`[${i + 1}/${total}] Ignoring ${title}.`);
 		}
 		// Delay still helpful to avoid overloading their API, but usually 50ms-100ms is perfectly fine here.
 		// await sleep(50);
