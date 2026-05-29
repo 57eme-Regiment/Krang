@@ -56,8 +56,10 @@ const getAllUrls = async (): Promise<string[]> => {
 				url = '';
 				console.log('No more pages to scrape.');
 			}
-		} catch (error) {
-			console.error('Error scraping the wiki:', error);
+		} catch (error: any) {
+			console.error('Error scraping the wiki');
+			const fs = await import('fs');
+			fs.writeFileSync('error.html', error.response.data || 'No response data');
 			break;
 		}
 	}
@@ -73,6 +75,10 @@ const transformUrl = (url: string): string => {
 	const filename = match ? match[1] : null;
 	return "https://foxhole.wiki.gg/images/" + filename;
 }
+
+const className: Set<string> = new Set();
+const superClassName: Set<string> = new Set();
+const categoryName: Set<string> = new Set();
 
 const getItemInfo = async (url: string) => {
 	try {
@@ -107,13 +113,31 @@ const getItemInfo = async (url: string) => {
 			.children()
 			.last()
 			.text().toUpperCase().replace(/ /g, '_');
-		const category = CategorySchema.parse(categoryRaw);
+		let category;
+		try {
+			category = CategorySchema.parse(categoryRaw);
+		} catch (e) {
+			categoryName.add(categoryRaw);
+			return undefined;
+		}
 		
 		const superClassRaw = chassis ? type.toUpperCase().replace(/ /g, '_') : '';
-		const superClass = SuperClassSchema.parse(superClassRaw);
+		let superClass;
+		try {
+			superClass = SuperClassSchema.parse(superClassRaw);
+		} catch (e) {
+			superClassName.add(superClassRaw);
+			return undefined;
+		}
 		
 		const classRaw = chassis ? chassis.toUpperCase().replace(/ /g, '_') : type.toUpperCase().replace(/ /g, '_');
-		const class_ = ClassSchema.parse(classRaw);
+		let class_;
+		try {
+			class_ = ClassSchema.parse(classRaw);
+		} catch (e) {
+			className.add(classRaw);
+			return undefined;
+		}
 		
 		const maxQuantity = categoryRaw === "MATERIAL" && (superClassRaw === "LIQUID" || superClassRaw === "LARGE_MATERIAL") ? 100 : 300; // TODO
 		const itemInfo: CreateItem = {
@@ -152,23 +176,46 @@ const getItemInfo = async (url: string) => {
 // };
 
 
-export async function scrapeWiki(api: ApiClient) {
+export async function scrapWiki(api: ApiClient) {
 	// const baseurl = 'https://foxhole.wiki.gg/';
 
-	const urls = await getAllUrls();
+	let urls: string[] = [];
+	try {
+		urls = await getAllUrls();
+	} catch (e) {
+		console.error('Error fetching URLs:', e);
+		return;
+	}
+	
 
+	// for (const url of urls) {
+	// 	console.log(`Processing ${url}...`);
+	// 	const itemInfo = await getItemInfo(url);
+	// 	if (itemInfo) {
+	// 		try {
+	// 			const parsedItem = createItemSchema.parse(itemInfo);
+	// 			// await api.item.create({
+	// 			// 	body: parsedItem,
+	// 			// });
+	// 		} catch (e) {
+	// 			console.error(`Validation error for ${url}:`, e);
+	// 		}
+	// 	}
+	// 	await sleep(100);
+	// }
 	for (const url of urls) {
-		const itemInfo = await getItemInfo(url);
-		if (itemInfo) {
-			try {
-				const parsedItem = createItemSchema.parse(itemInfo);
-				await api.item.create({
-					body: parsedItem,
-				});
-			} catch (e) {
-				console.error(`Validation error for ${url}:`, e);
-			}
-		}
+		console.log(`Processing ${url}...`);
+
+	for (const category of categoryName) {
+		console.log(`Unknown category: ${category}`);
+	}
+
+	for (const superClass of superClassName) {
+		console.log(`Unknown super class: ${superClass}`);
+	}
+
+	for (const class_ of className) {
+		console.log(`Unknown class: ${class_}`);
 	}
 
 	// try {
@@ -188,3 +235,7 @@ export async function scrapeWiki(api: ApiClient) {
 	// getItemInfo('/wiki/.44');
 	// const urls = await getAllUrls();
 }
+
+// function sleep(ms: number) {
+// 	return new Promise(resolve => setTimeout(resolve, ms));
+// }
