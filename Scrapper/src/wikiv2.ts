@@ -56,12 +56,12 @@ const transformUrl = (url: string): string => {
 	return filename ? `https://foxhole.wiki.gg/images/${filename}` : '';
 };
 
-const className: Set<string> = new Set();
-const superClassName: Set<string> = new Set();
-const categoryName: Set<string> = new Set();
+// const className: Set<string> = new Set();
+// const superClassName: Set<string> = new Set();
+// const categoryName: Set<string> = new Set();
 
 const getItemInfo = async (title: string) => {
-	let isundef = false;
+	// let isundef = false;
 	while(true) {
 		try {
 			const url = `https://foxhole.wiki.gg/api.php?action=parse&page=${encodeURIComponent(title)}&prop=text&format=json`;
@@ -132,10 +132,10 @@ const getItemInfo = async (title: string) => {
 			const rawType = type.toUpperCase().trim().replace(/-|&|\/| /g, '_') || '';
 
 			const superClassRaw = chassisText === "Super Class" ? rawChassis : typeText === "Super Class" ? rawType : 'NONE';
-			superClassName.add(superClassRaw);
+			// superClassName.add(superClassRaw);
 
 			const classRaw = chassisText === "Class" ? rawChassis : typeText === "Class" ? rawType : 'NONE';
-			className.add(classRaw);
+			// className.add(classRaw);
 
 			try {
 				if (categoryRaw === "" && disableThreshold !== "")
@@ -144,27 +144,27 @@ const getItemInfo = async (title: string) => {
 					category = CategorySchema.parse(categoryRaw);
 			} catch (e) {
 				console.error(`Error parsing category (${categoryRaw}) for ${title}`);
-				// return undefined;
-				isundef = true;
+				return undefined;
+				// isundef = true;
 			}
 			
 			try {
 				superClass = SuperClassSchema.parse(superClassRaw);
 			} catch (e) {
 				console.error(`Error parsing super class (${superClassRaw}) for ${title}`);
-				// return undefined;
-				isundef = true;
+				return undefined;
+				// isundef = true;
 			}
 			
 			try {
 				class_ = ClassSchema.parse(classRaw);
 			} catch (e) {
 				console.error(`Error parsing class (${classRaw}) for ${title}`);
-				// return undefined;
-				isundef = true;
+				return undefined;
+				// isundef = true;
 			}
 
-			if (isundef) return undefined;
+			// if (isundef) return undefined;
 			
 			const maxQuantity = categoryRaw === "MATERIAL" && (superClassRaw === "LIQUID" || superClassRaw === "LARGE_MATERIAL") ? 100 : 300;
 			
@@ -210,9 +210,9 @@ export async function scrapWikiV2(api: ApiClient) {
 			console.log(`[${i + 1}/${total}] Processing ${title}...`);
 			try {
 				const parsedItem = createItemSchema.parse(itemInfo);
-				// await api.item.upsert({
-				// 	body: parsedItem,
-				// })
+				await api.item.upsert({
+					body: parsedItem,
+				})
 			} catch (e) {
 				console.error(`Validation error for ${title}:`, e);
 			}
@@ -223,17 +223,17 @@ export async function scrapWikiV2(api: ApiClient) {
 		// await sleep(50);
 	}
 
-	for (const category of categoryName) {
-		console.log(`Unknown category: ${category}`);
-	}
+	// for (const category of categoryName) {
+	// 	console.log(`Unknown category: ${category}`);
+	// }
 
-	for (const superClass of superClassName) {
-		console.log(`Unknown super class: ${superClass}`);
-	}
+	// for (const superClass of superClassName) {
+	// 	console.log(`Unknown super class: ${superClass}`);
+	// }
 
-	for (const class_ of className) {
-		console.log(`Unknown class: ${class_}`);
-	}
+	// for (const class_ of className) {
+	// 	console.log(`Unknown class: ${class_}`);
+	// }
 
 
 }
