@@ -1,9 +1,8 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-// import * as crypto from 'crypto';
 import { createItemSchema, Faction, CategorySchema, SuperClassSchema, ClassSchema } from '@57eme-regiment/krang-api-contract';
 import type { CreateItem } from '@57eme-regiment/krang-api-contract';
-import { createApiClient, type ApiClient } from '../src/api.js';
+import { type ApiClient } from './api.js';
 
 const get = (url: string) => {
 	return axios.get(url, {
@@ -13,59 +12,40 @@ const get = (url: string) => {
 	});
 };
 
-const parseSpecialPage = (
-	$: cheerio.CheerioAPI,
-): [string[], string | undefined] => {
-	const pageUrls: string[] = [];
+const getAllPageTitles = async (): Promise<string[]> => {
+	let continueToken = '';
+	const titles: string[] = [];
 
-	const nav = $('div.mw-allpages-nav');
-	const nextPageLink =
-		nav.children().last().text().includes('Next page') === false
-			? undefined
-			: nav.children().last().attr('href');
-
-	const pageList = $('ul.mw-allpages-chunk');
-	pageList.children().each((index, element) => {
-		const pageUrl = $(element).find('a').attr('href');
-		if (pageUrl) {
-			pageUrls.push(pageUrl);
-		} else {
-			console.warn(
-				`No href found for element at index ${index} : ${$(element).text()}`,
-			);
+	while (true) {
+		let url = `https://foxhole.wiki.gg/api.php?action=query&list=allpages&aplimit=500&apfilterredir=nonredirects&format=json`;
+		if (continueToken) {
+			url += `&apcontinue=${encodeURIComponent(continueToken)}`;
 		}
-	});
-	return [pageUrls, nextPageLink];
-};
 
-const getAllUrls = async (): Promise<string[]> => {
-	let url = 'https://foxhole.wiki.gg/wiki/Special:AllPages?hideredirects=1';
-	const urls: string[] = [];
-
-	while (url) {
 		try {
 			const response = await get(url);
-			const $ = cheerio.load(response.data);
-			const [pageUrls, nextPageLink] = parseSpecialPage($);
-			// console.log(`Scraped ${pageUrls.length} URLs from ${url}`);
-			urls.push(...pageUrls);
-			if (nextPageLink) {
-				url = 'https://foxhole.wiki.gg' + nextPageLink;
-				console.log(`Next page: ${url}`);
+			const data = response.data;
+			
+			if (data.query && data.query.allpages) {
+				const batch = data.query.allpages.map((p: any) => p.title);
+				titles.push(...batch);
+			}
+			
+			if (data.continue && data.continue.apcontinue) {
+				continueToken = data.continue.apcontinue;
+				console.log(`Next page titles batch...`);
 			} else {
-				url = '';
-				console.log('No more pages to scrape.');
+				console.log('No more pages to fetch.');
+				break;
 			}
 		} catch (error: any) {
-			console.error('Error scraping the wiki');
-			const fs = await import('fs');
-			fs.writeFileSync('error.html', error.response.data || 'No response data');
+			console.error('Error fetching from Wiki API:', error.message);
 			break;
 		}
 	}
 
-	console.log(`Total URLs collected: ${urls.length}`);
-	return urls;
+	console.log(`Total titles collected: ${titles.length}`);
+	return titles;
 };
 
 const transformUrl = (url: string): string => {
@@ -73,169 +53,133 @@ const transformUrl = (url: string): string => {
 	const match = url.match(regex);
 
 	const filename = match ? match[1] : null;
-	return "https://foxhole.wiki.gg/images/" + filename;
-}
+	return filename ? `https://foxhole.wiki.gg/images/${filename}` : '';
+};
 
-const className: Set<string> = new Set();
-const superClassName: Set<string> = new Set();
-const categoryName: Set<string> = new Set();
+const getItemInfo = async (title: string) => {
+	while(true) {
+		try {
+			const url = `https://foxhole.wiki.gg/api.php?action=parse&page=${encodeURIComponent(title)}&prop=text&format=json`;
+			const response = await get(url);
+			
+			if (response.data.error) {
+				return undefined;
+			}
+			
+			if (!response.data.parse || !response.data.parse.text || !response.data.parse.text['*']) {
+				return undefined;
+			}
+	
+			const html = response.data.parse.text['*'];
+			const $ = cheerio.load(html);
+			const infoBox = $('aside.portable-infobox');
+			
+			if (infoBox.length === 0) return undefined;
+	
+			const getInfoBoxText = (source: string, isFirst: boolean = false) => {
+				const el = infoBox.find(`div[data-source="${source}"]`).children();
+				return (isFirst ? el.first() : el.last()).text();
+			};
 
-const getItemInfo = async (url: string) => {
-	try {
-		const response = await get('https://foxhole.wiki.gg' + url);
-		const $ = cheerio.load(response.data);
-		const infoBox = $('aside.portable-infobox');
-		if (infoBox.length === 0) return undefined;
-		//<div class="pi-item pi-data pi-item-spacing pi-border-color" data-source="ChassisName">
-		const itemName = infoBox.children().first().text();
-		const faction = infoBox.hasClass("pi-theme-War") ? Faction.WARDEN : infoBox.hasClass("pi-theme-Col") ? Faction.COLONIAL : Faction.NEUTRAL;
-		const itemImageUrl = infoBox
-		.children()
-		.find('a.image')
-		.attr('href') || '';
-		const chassis = infoBox
-			.find('div[data-source="ChassisName"]')
-			.children()
-			.last()
-			.text();
-		const type = infoBox
-			.find('div[data-source="type"]')
-			.children()
-			.last()
-			.text();
-		const crateAmount = infoBox
-			.find('div[data-source="crate_amount"]')
-			.children()
-			.last()
-			.text();
-		const categoryRaw = infoBox
-			.find('div[data-source="category"]')
-			.children()
-			.last()
-			.text().toUpperCase().replace(/ /g, '_');
-		let category;
-		try {
-			category = CategorySchema.parse(categoryRaw);
-		} catch (e) {
-			categoryName.add(categoryRaw);
-			return undefined;
+			const itemName = infoBox.children().first().text();
+			const faction = infoBox.hasClass("pi-theme-War") ? Faction.WARDEN : infoBox.hasClass("pi-theme-Col") ? Faction.COLONIAL : Faction.NEUTRAL;
+			const itemImageUrl = infoBox.children().find('a.image').attr('href') || '';
+				
+			const chassisText = getInfoBoxText('ChassisName', true);
+			const chassis = getInfoBoxText('ChassisName');
+			const typeText = getInfoBoxText('type', true);
+			const type = getInfoBoxText('type');
+			const crateAmount = parseInt(getInfoBoxText('crate_amount')) || 0;
+			const categoryRaw = getInfoBoxText('category').toUpperCase().trim().replace(/-|&|\/| /g, '_');
+			const disableThreshold = getInfoBoxText('disable');
+				
+			let category;
+			let superClass;
+			let class_;
+			
+			const rawChassis = chassis.toUpperCase().trim().replace(/-|&|\/| /g, '_') || '';
+			const rawType = type.toUpperCase().trim().replace(/-|&|\/| /g, '_') || '';
+
+			const superClassRaw = chassisText === "Super Class" ? rawChassis : typeText === "Super Class" ? rawType : 'NONE';
+			const classRaw = chassisText === "Class" ? rawChassis : typeText === "Class" ? rawType : 'NONE';
+
+			try {
+				category = CategorySchema.parse(categoryRaw === "" && disableThreshold !== "" ? 'VEHICLE' : categoryRaw);
+			} catch (e) {
+				console.error(`Error parsing category (${categoryRaw}) for ${title}`);
+				return undefined;
+			}
+			
+			try {
+				superClass = SuperClassSchema.parse(superClassRaw);
+			} catch (e) {
+				console.error(`Error parsing super class (${superClassRaw}) for ${title}`);
+				return undefined;
+			}
+			
+			try {
+				class_ = ClassSchema.parse(classRaw);
+			} catch (e) {
+				console.error(`Error parsing class (${classRaw}) for ${title}`);
+				return undefined;
+			}
+			
+			const maxQuantity = categoryRaw === "MATERIAL" && (superClassRaw === "LIQUID" || superClassRaw === "LARGE_MATERIAL") ? 300 : 100;
+			
+			const itemInfo: CreateItem = {
+				name: itemName,
+				shortName: undefined,
+				category: category!,
+				superClass: superClass!,
+				class: class_!,
+				faction: faction,
+				nbByCrate: crateAmount,
+				maxQuantity: maxQuantity,
+				icon: transformUrl(itemImageUrl),
+				attributes: {},
+			};
+	
+			return itemInfo;
+		} catch (e: any) {
+			// the API has a rate limit that we hit about ~120 requests every minute.
+			// with this loop, it will eventually finish but it'll take time.
+			console.error(`Error fetching item info for ${title}:`, e.message, `Retrying in 10 seconds...`);
+			await sleep(10000);
 		}
-		
-		const superClassRaw = chassis ? type.toUpperCase().replace(/ /g, '_') : '';
-		let superClass;
-		try {
-			superClass = SuperClassSchema.parse(superClassRaw);
-		} catch (e) {
-			superClassName.add(superClassRaw);
-			return undefined;
-		}
-		
-		const classRaw = chassis ? chassis.toUpperCase().replace(/ /g, '_') : type.toUpperCase().replace(/ /g, '_');
-		let class_;
-		try {
-			class_ = ClassSchema.parse(classRaw);
-		} catch (e) {
-			className.add(classRaw);
-			return undefined;
-		}
-		
-		const maxQuantity = categoryRaw === "MATERIAL" && (superClassRaw === "LIQUID" || superClassRaw === "LARGE_MATERIAL") ? 100 : 300; // TODO
-		const itemInfo: CreateItem = {
-			name: itemName,
-			shortName: undefined,
-			// TODO : ask AI to see how to do it better
-			category: category,
-			superClass: superClass,
-			class: class_,
-			faction: faction,
-			nbByCrate: parseInt(crateAmount) || 0,
-			maxQuantity: maxQuantity,
-			icon: transformUrl(itemImageUrl),
-			attributes: {},
-		};
-		// console.log(itemInfo);
-		return itemInfo;
-	} catch (e) {
-		// console.error(`Error fetching item info for ${url}:`, e);
-		return undefined;
 	}
 };
 
-// const getAllItems = async () => {
-// 	const urls = await getAllUrls();
-
-// 	// aside.portable-infobox
-
-// 	for (const url of urls) {
-// 		await getItemInfo(url);
-// 	}
-// }
-
-// const generateHash = (str: string): string => {
-// 	return crypto.createHash('sha256').update(str).digest('hex');
-// };
-
-
 export async function scrapWiki(api: ApiClient) {
-	// const baseurl = 'https://foxhole.wiki.gg/';
-
-	let urls: string[] = [];
+	let titles: string[] = [];
 	try {
-		urls = await getAllUrls();
+		titles = await getAllPageTitles();
 	} catch (e) {
-		console.error('Error fetching URLs:', e);
+		console.error('Error fetching titles:', e);
 		return;
 	}
+
 	
+	const total = titles.length;
+	for (const [index, title] of titles.entries()) {
+		if (!title) continue;
 
-	// for (const url of urls) {
-	// 	console.log(`Processing ${url}...`);
-	// 	const itemInfo = await getItemInfo(url);
-	// 	if (itemInfo) {
-	// 		try {
-	// 			const parsedItem = createItemSchema.parse(itemInfo);
-	// 			// await api.item.create({
-	// 			// 	body: parsedItem,
-	// 			// });
-	// 		} catch (e) {
-	// 			console.error(`Validation error for ${url}:`, e);
-	// 		}
-	// 	}
-	// 	await sleep(100);
-	// }
-	for (const url of urls) {
-		console.log(`Processing ${url}...`);
-
-	for (const category of categoryName) {
-		console.log(`Unknown category: ${category}`);
+		const itemInfo = await getItemInfo(title);
+		if (itemInfo) {
+			console.log(`[${index + 1}/${total}] Processing ${title}...`);
+			try {
+				const parsedItem = createItemSchema.parse(itemInfo);
+				await api.item.upsert({
+					body: parsedItem,
+				});
+			} catch (e) {
+				console.error(`Validation error for ${title}:`, e);
+			}
+		} else {
+			console.error(`[${index + 1}/${total}] Ignoring ${title}.`);
+		}
 	}
-
-	for (const superClass of superClassName) {
-		console.log(`Unknown super class: ${superClass}`);
-	}
-
-	for (const class_ of className) {
-		console.log(`Unknown class: ${class_}`);
-	}
-
-	// try {
-	// 	const toto = await getItemInfo('/wiki/.44');
-	// 	const a = createItemSchema.parse(toto);
-	// 	await api.item.create({ // #TODO : change to upsert when the endpoint will be ready
-	// 		body: a
-	// 	});
-	// } catch (e) {
-	// 	console.error('Validation error:', e);
-	// }
-
-	// betterWay(url);
-
-	// getItemInfo('/wiki/BMS_-_Packmule_Flatbed');
-	// getItemInfo('/wiki/Vehicles#Railway_Vehicles-0');
-	// getItemInfo('/wiki/.44');
-	// const urls = await getAllUrls();
 }
 
-// function sleep(ms: number) {
-// 	return new Promise(resolve => setTimeout(resolve, ms));
-// }
+function sleep(ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
