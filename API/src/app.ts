@@ -1,4 +1,5 @@
 import { env } from '@/config/env';
+import { logger } from '@/config/logger';
 import { errorHandler } from '@/shared/errors/errorHandler';
 import cors from '@fastify/cors';
 import {
@@ -12,10 +13,20 @@ import { regionRoutes } from './controller/Region/region.route';
 import { townRoutes } from './controller/Town/town.route';
 
 export function buildApp() {
-  const app = Fastify({
-    logger: {
-      level: env.NODE_ENV === 'production' ? 'info' : 'debug',
-    },
+  const app = Fastify({ logger: { level: 'error' } });
+
+  app.addHook('onRequest', (req, _reply, done) => {
+    logger.info(
+      `→ reqId:"${req.id}" ${req.method} ${req.url} from:${req.host} user:${req.user ? req.user.username : 'no user'} msg:"incoming request"`,
+    );
+    done();
+  });
+
+  app.addHook('onResponse', (req, reply, done) => {
+    logger.info(
+      `← reqId:"${req.id}" ${req.method} ${req.url} ${reply.statusCode} ${reply.elapsedTime.toFixed(2)}ms msg:"request completed"`,
+    );
+    done();
   });
 
   app.register(cors, {

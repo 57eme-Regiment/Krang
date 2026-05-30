@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@57eme-regiment/auth-contracts':
+        specifier: ^1.3.0
+        version: 1.3.0(@types/node@22.19.19)
+      '@57eme-regiment/auth-server':
+        specifier: ^1.3.0
+        version: 1.3.0(@types/node@22.19.19)(fastify@5.8.5)
       '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
@@ -29,6 +35,9 @@ importers:
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
+      tslog:
+        specifier: ^4.10.2
+        version: 4.10.2
       tsyringe:
         specifier: ^4.10.0
         version: 4.10.0
@@ -72,6 +81,14 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@57eme-regiment/auth-contracts@1.3.0':
+    resolution: {integrity: sha512-MfxEcWRMQWxOaQ/H0TKEnBAv3ZVONv+lsB/T05WHqYdLm5/jsttGAasGxbhz0VRQJUFmZG1rJAAgOwuAgjZzow==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.3.0/be155a98371dd15ccc768e229c6a1ebbdc2e8290}
+
+  '@57eme-regiment/auth-server@1.3.0':
+    resolution: {integrity: sha512-ckh3hUS8LZNcfUquqN6LJXKZ1b5gMX+TI/HvCUJAJDlqbaqaD0v0xrS8pYC3wMtfAdUlLGXmbNnej7uv1oYkZw==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.3.0/16f0ba0d2b0e68f5739d072c9f2049e9b3928dd0}
+    peerDependencies:
+      fastify: '>=5'
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -987,6 +1004,10 @@ packages:
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
+  tslog@4.10.2:
+    resolution: {integrity: sha512-XuELoRpMR+sq8fuWwX7P0bcj+PRNiicOKDEb3fGNURhxWVyykCi9BNq7c4uVz7h7P0sj8qgBsr5SWS6yBClq3g==}
+    engines: {node: '>=16'}
+
   tsyringe@4.10.0:
     resolution: {integrity: sha512-axr3IdNuVIxnaK5XGEUFTu3YmAQ6lllgrvqfEoR16g/HGnYY/6We4oWENtAnzK6/LpJ2ur9PAb80RBt7/U4ugw==}
     engines: {node: '>= 6.0.0'}
@@ -1038,6 +1059,20 @@ packages:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
+
+  '@57eme-regiment/auth-contracts@1.3.0(@types/node@22.19.19)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@57eme-regiment/auth-server@1.3.0(@types/node@22.19.19)(fastify@5.8.5)':
+    dependencies:
+      '@57eme-regiment/auth-contracts': 1.3.0(@types/node@22.19.19)
+      fastify: 5.8.5
+    transitivePeerDependencies:
+      - '@types/node'
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -1922,6 +1957,8 @@ snapshots:
       strip-json-comments: 2.0.1
 
   tslib@1.14.1: {}
+
+  tslog@4.10.2: {}
 
   tsyringe@4.10.0:
     dependencies:

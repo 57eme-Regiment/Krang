@@ -1,4 +1,6 @@
 import { container } from '@/infrastructure/container';
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
+import { requirePermission } from '@57eme-regiment/auth-server';
 import {
   ItemSchema,
   createItemSchema,
@@ -16,50 +18,79 @@ export async function itemRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(ItemController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  server.get('/', {
-    schema: { response: { 200: z.array(ItemSchema) } },
-  }, ctrl.getAll.bind(ctrl));
-
-  server.get('/:id', {
-    schema: {
-      params: itemParamsSchema,
-      response: { 200: ItemSchema, 404: errorSchema },
+  server.get(
+    '/',
+    {
+      preHandler: requirePermission(PERMISSIONS.KRANG_ITEM_READ),
+      schema: { response: { 200: z.array(ItemSchema) } },
     },
-  }, ctrl.getById.bind(ctrl));
+    ctrl.getAll.bind(ctrl),
+  );
 
-  server.post('/', {
-    schema: {
-      body: createItemSchema,
-      response: { 201: ItemSchema },
+  server.get(
+    '/:id',
+    {
+      schema: {
+        params: itemParamsSchema,
+        response: { 200: ItemSchema, 404: errorSchema },
+      },
     },
-  }, ctrl.create.bind(ctrl));
+    ctrl.getById.bind(ctrl),
+  );
 
-  server.post('/upsert', {
-    schema: {
-      body: createItemSchema,
-      response: { 200: ItemSchema },
+  server.post(
+    '/',
+    {
+      schema: {
+        body: createItemSchema,
+        response: { 201: ItemSchema },
+      },
     },
-  }, ctrl.upsert.bind(ctrl));
+    ctrl.create.bind(ctrl),
+  );
 
-  server.post('/upsertRange', {
-    schema: {
-      body: createItemSchema.array(),
-      response: { 200: ItemSchema.array() },
+  server.post(
+    '/upsert',
+    {
+      schema: {
+        body: createItemSchema,
+        response: { 200: ItemSchema },
+      },
     },
-  }, ctrl.upsertRange.bind(ctrl));
+    ctrl.upsert.bind(ctrl),
+  );
 
-  server.put('/:id', {
-    schema: {
-      params: itemParamsSchema,
-      body: updateItemSchema,
-      response: { 200: ItemSchema, 404: errorSchema },
+  server.post(
+    '/upsertRange',
+    {
+      schema: {
+        body: createItemSchema.array(),
+        response: { 200: ItemSchema.array() },
+      },
     },
-  }, ctrl.update.bind(ctrl));
+    ctrl.upsertRange.bind(ctrl),
+  );
 
-  server.delete('/:id', {
-    schema: {
-      params: itemParamsSchema,
-      response: { 204: z.null(), 404: errorSchema },
+  server.put(
+    '/:id',
+    {
+      schema: {
+        params: itemParamsSchema,
+        body: updateItemSchema,
+        response: { 200: ItemSchema, 404: errorSchema },
+      },
     },
-  }, ctrl.delete.bind(ctrl));
+    ctrl.update.bind(ctrl),
+  );
+
+  server.delete(
+    '/:id',
+    {
+      schema: {
+        params: itemParamsSchema,
+        response: { 204: z.null(), 404: errorSchema },
+      },
+    },
+    ctrl.delete.bind(ctrl),
+  );
 }
