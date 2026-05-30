@@ -7,10 +7,10 @@ import {
   validatorCompiler,
 } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
-import { itemRoutes } from './controller/Item/item.route';
-import { locationRoutes } from './controller/Location/location.route';
-import { regionRoutes } from './controller/Region/region.route';
-import { townRoutes } from './controller/Town/town.route';
+import { itemRoutes } from './services/item/item.route';
+import { locationRoutes } from './services/location/location.route';
+import { regionRoutes } from './services/region/region.route';
+import { townRoutes } from './services/town/town.route';
 
 export function buildApp() {
   const app = Fastify({ logger: { level: 'error' } });

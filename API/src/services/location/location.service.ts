@@ -1,19 +1,15 @@
 import { Location } from '@/generated/client';
-import { ILocationRepository } from '@/repository/location/location.repository.interface';
+import { LocationRepository } from '@/services/location/location.repository';
 import { AppError } from '@/shared/errors/appError';
 import {
   CreateLocation,
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
-import { inject, injectable } from 'tsyringe';
-import type { ILocationService } from './location.service.interface';
+import { injectable } from 'tsyringe';
 
 @injectable()
-export class LocationService implements ILocationService {
-  constructor(
-    @inject('ILocationRepository')
-    private readonly locationRepository: ILocationRepository,
-  ) {}
+export class LocationService {
+  constructor(private readonly locationRepository: LocationRepository) {}
 
   async getAll(): Promise<Location[]> {
     return this.locationRepository.findAll();

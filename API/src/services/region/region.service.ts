@@ -1,16 +1,12 @@
 import { Region } from '@/generated/client';
-import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
-import { IRegionRepository } from '@/repository/region/region.repository.interface';
+import { RegionRepository } from '@/services/region/region.repository';
 import { AppError } from '@/shared/errors/appError';
-import { inject, injectable } from 'tsyringe';
-import type { IRegionService } from './region.service.interface';
+import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
+import { injectable } from 'tsyringe';
 
 @injectable()
-export class RegionService implements IRegionService {
-  constructor(
-    @inject('IRegionRepository')
-    private readonly regionRepository: IRegionRepository,
-  ) {}
+export class RegionService {
+  constructor(private readonly regionRepository: RegionRepository) {}
 
   async getAll(): Promise<Region[]> {
     return this.regionRepository.findAll();
@@ -18,7 +14,8 @@ export class RegionService implements IRegionService {
 
   async getById(id: string): Promise<Region> {
     const region = await this.regionRepository.findById(id);
-    if (!region) throw new AppError('Region not found', 404, 'REGION_NOT_FOUND');
+    if (!region)
+      throw new AppError('Region not found', 404, 'REGION_NOT_FOUND');
     return region;
   }
 

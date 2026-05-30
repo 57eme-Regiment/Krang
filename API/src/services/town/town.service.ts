@@ -1,16 +1,12 @@
 import { Town } from '@/generated/client';
-import { ITownRepository } from '@/repository/town/town.repository.interface';
+import { TownRepository } from '@/services/town/town.repository';
 import { AppError } from '@/shared/errors/appError';
 import { CreateTown, UpdateTown } from '@57eme-regiment/krang-api-contract';
-import { inject, injectable } from 'tsyringe';
-import type { ITownService } from './town.service.interface';
+import { injectable } from 'tsyringe';
 
 @injectable()
-export class TownService implements ITownService {
-  constructor(
-    @inject('ITownRepository')
-    private readonly townRepository: ITownRepository,
-  ) {}
+export class TownService {
+  constructor(private readonly townRepository: TownRepository) {}
 
   async getAll(): Promise<Town[]> {
     return this.townRepository.findAll();

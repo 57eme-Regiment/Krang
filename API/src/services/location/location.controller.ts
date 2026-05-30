@@ -1,18 +1,15 @@
-import { ILocationService } from '@/service/location/location.service.interface';
+import { LocationService } from '@/services/location/location.service';
 import {
   CreateLocation,
   LocationParams,
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class LocationController {
-  constructor(
-    @inject('ILocationService')
-    private readonly locationService: ILocationService,
-  ) {}
+  constructor(private readonly locationService: LocationService) {}
 
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
     const locations = await this.locationService.getAll();

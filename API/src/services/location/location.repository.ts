@@ -5,10 +5,10 @@ import {
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
-import { ILocationRepository } from './location.repository.interface';
+
 
 @injectable()
-export class LocationRepository implements ILocationRepository {
+export class LocationRepository {
   constructor(private readonly db: Database) {}
 
   findAll(): Promise<Location[]> {

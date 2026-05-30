@@ -1,18 +1,15 @@
-import { IItemService } from '@/service/item/item.service.interface';
+import { ItemService } from '@/services/item/item.service';
 import {
   CreateItem,
   ItemParams,
   UpdateItem,
 } from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class ItemController {
-  constructor(
-    @inject('IItemService')
-    private readonly itemService: IItemService,
-  ) {}
+  constructor(private readonly itemService: ItemService) {}
 
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
     const items = await this.itemService.getAll();
@@ -27,18 +24,12 @@ export class ItemController {
     return reply.send(item);
   }
 
-  async create(
-    req: FastifyRequest<{ Body: CreateItem }>,
-    reply: FastifyReply,
-  ) {
+  async create(req: FastifyRequest<{ Body: CreateItem }>, reply: FastifyReply) {
     const item = await this.itemService.create(req.body);
     return reply.status(201).send(item);
   }
 
-  async upsert(
-    req: FastifyRequest<{ Body: CreateItem }>,
-    reply: FastifyReply,
-  ) {
+  async upsert(req: FastifyRequest<{ Body: CreateItem }>, reply: FastifyReply) {
     const item = await this.itemService.upsert(req.body);
     return reply.send(item);
   }

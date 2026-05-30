@@ -2,10 +2,9 @@ import { Town } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
 import { CreateTown, UpdateTown } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
-import { ITownRepository } from './town.repository.interface';
 
 @injectable()
-export class TownRepository implements ITownRepository {
+export class TownRepository {
   constructor(private readonly db: Database) {}
 
   findAll(): Promise<Town[]> {

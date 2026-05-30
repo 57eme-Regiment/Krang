@@ -2,10 +2,9 @@ import { Item } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
 import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
-import { IItemRepository } from './item.repository.interface';
 
 @injectable()
-export class ItemRepository implements IItemRepository {
+export class ItemRepository {
   constructor(private readonly db: Database) {}
   findAll(): Promise<Item[]> {
     return this.db.context.item.findMany({});

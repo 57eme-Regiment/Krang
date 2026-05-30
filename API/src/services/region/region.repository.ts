@@ -2,10 +2,9 @@ import { Region } from '@/generated/client';
 import { Database } from '@/infrastructure/database';
 import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
-import { IRegionRepository } from './region.repository.interface';
 
 @injectable()
-export class RegionRepository implements IRegionRepository {
+export class RegionRepository {
   constructor(private readonly db: Database) {}
 
   findAll(): Promise<Region[]> {

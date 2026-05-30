@@ -1,16 +1,12 @@
 import { Item } from '@/generated/client';
-import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
-import { IItemRepository } from '@/repository/item/item.repository.interface';
+import { ItemRepository } from '@/services/item/item.repository';
 import { AppError } from '@/shared/errors/appError';
-import { inject, injectable } from 'tsyringe';
-import type { IItemService } from './item.service.interface';
+import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
+import { injectable } from 'tsyringe';
 
 @injectable()
-export class ItemService implements IItemService {
-  constructor(
-    @inject('IItemRepository')
-    private readonly itemRepository: IItemRepository,
-  ) {}
+export class ItemService {
+  constructor(private readonly itemRepository: ItemRepository) {}
 
   async getAll(): Promise<Item[]> {
     return this.itemRepository.findAll();

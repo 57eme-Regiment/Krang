@@ -1,18 +1,15 @@
-import { IRegionService } from '@/service/region/region.service.interface';
+import { RegionService } from '@/services/region/region.service';
 import {
   CreateRegion,
   RegionParams,
   UpdateRegion,
 } from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class RegionController {
-  constructor(
-    @inject('IRegionService')
-    private readonly regionService: IRegionService,
-  ) {}
+  constructor(private readonly regionService: RegionService) {}
 
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
     const regions = await this.regionService.getAll();
