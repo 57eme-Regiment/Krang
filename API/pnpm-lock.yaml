@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@22.19.19)
+        specifier: ^1.5.0
+        version: 1.5.0(@types/node@22.19.19)
       '@57eme-regiment/auth-server':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@22.19.19)(fastify@5.8.5)
+        specifier: ^1.5.0
+        version: 1.5.0(@types/node@22.19.19)(fastify@5.8.5)
       '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
@@ -82,11 +82,11 @@ importers:
 
 packages:
 
-  '@57eme-regiment/auth-contracts@1.3.0':
-    resolution: {integrity: sha512-MfxEcWRMQWxOaQ/H0TKEnBAv3ZVONv+lsB/T05WHqYdLm5/jsttGAasGxbhz0VRQJUFmZG1rJAAgOwuAgjZzow==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.3.0/be155a98371dd15ccc768e229c6a1ebbdc2e8290}
+  '@57eme-regiment/auth-contracts@1.5.0':
+    resolution: {integrity: sha512-CCz9OZ8F3AAzyMmYVS1q38HaiMsRtwIzBAn9yONJMr+F/AAiT+sL1mRFIkP4oWO+6grthTF2AJfVy22+B42eEg==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.5.0/99e39a228483601e2b3c2ccfd4a816b97081392f}
 
-  '@57eme-regiment/auth-server@1.3.0':
-    resolution: {integrity: sha512-ckh3hUS8LZNcfUquqN6LJXKZ1b5gMX+TI/HvCUJAJDlqbaqaD0v0xrS8pYC3wMtfAdUlLGXmbNnej7uv1oYkZw==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.3.0/16f0ba0d2b0e68f5739d072c9f2049e9b3928dd0}
+  '@57eme-regiment/auth-server@1.5.0':
+    resolution: {integrity: sha512-GQzbAHr+hpQ9BfXW7XIr8ZxJYTFWN/iQKg5N9AUuWubtFgS+CnNHiDR3z/YWqKqqqrb2GxayShq/Afxxlx9SoQ==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.5.0/ea866b2ee74575760711421b9a70a6d3db2f4e40}
     peerDependencies:
       fastify: '>=5'
 
@@ -1060,16 +1060,16 @@ packages:
 
 snapshots:
 
-  '@57eme-regiment/auth-contracts@1.3.0(@types/node@22.19.19)':
+  '@57eme-regiment/auth-contracts@1.5.0(@types/node@22.19.19)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
       zod: 4.4.3
     transitivePeerDependencies:
       - '@types/node'
 
-  '@57eme-regiment/auth-server@1.3.0(@types/node@22.19.19)(fastify@5.8.5)':
+  '@57eme-regiment/auth-server@1.5.0(@types/node@22.19.19)(fastify@5.8.5)':
     dependencies:
-      '@57eme-regiment/auth-contracts': 1.3.0(@types/node@22.19.19)
+      '@57eme-regiment/auth-contracts': 1.5.0(@types/node@22.19.19)
       fastify: 5.8.5
     transitivePeerDependencies:
       - '@types/node'
